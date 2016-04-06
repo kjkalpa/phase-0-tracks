@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Favorites</title>
+</head>
+<body>
+  <h1>Welcome to your favorites picker</h1>
+  <h2>Picking favorites has never been easier</h2>
+
+  <form action="success.html" method="post">
+
+
+  <p> User Name: <input type="text" name="username" size="20" maxlength="30" /></p>
+
+  <fieldset>
+
+  <label>Please select your favorite baseball team:</label> <br>
+  <input type="radio" name="favteam" value="Cubs" checked="checked" />  Cubs
+  <input type="radio" name="favteam" value="Sox" />  Sox
+  <input type="radio" name="favteam" value="Brewers" />  Brewers
+  <input type="radio" name="favteam" value="Da Bears" />  Da Bears
+  <input type="radio" name="favteam" value="Brewers" />  Brewers
+
+
+  <p> Please confirm that your favorite team is the CUBS <input type="checkbox" name="ck_team" value="confirmed" /></p>
+
+  </fieldset>
+
+  <input type="date" name="date" />
+  </select>
+
+  <div>
+  <label>Favorite Sport</label>
+  <select name="Sport">
+  <option value="Basketball">Basketball</option>
+  <option value="Football">Football</option>
+  <option value="Hockey">Hockey</option>
+  <option value="Baseball">Baseball</option>
+  </select></div>
+
+  <p>Let us know if you have any other favorites you'd like to pick:</p>
+  <textarea name="comments" cols="80" rows="4">Enter comments here ... </textarea>
+  <br>
+  <button type="submit">Send it</button>
+</form>
+</body>
+</html>
