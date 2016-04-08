@@ -1,4 +1,3 @@
-* { outline: 1px solid red; }
 
 .puss {
   display: block;
@@ -11,4 +10,10 @@
   position: absolute;
   top: 181px;
   right: 569px;
+}
+
+#hat {
+  position: absolute;
+  top:20px;
+  left: 512px;
 }
