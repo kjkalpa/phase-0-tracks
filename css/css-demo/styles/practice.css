@@ -1,0 +1,12 @@
+
+.accomplishment {
+  font-size: .8em;
+ }
+
+.job:hover {
+  background-color: red;
+ }
+ 
+#work-experience ul {
+  list-style-type: circle;
+ }
