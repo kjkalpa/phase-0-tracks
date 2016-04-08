@@ -1,0 +1,31 @@
+.image-wrapper {
+  position: relative;
+  display: block;
+  width: 400px;
+  height: 400px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 20px;
+
+}
+
+.puss {
+  position: absolute;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 80px;
+} 
+
+#glasses {
+  position: absolute;
+  left: 42px;
+  top: 178px;
+}
+
+
+#hat {
+  position: absolute;
+  top: 10px;
+  right:145px;
+}
