@@ -1,0 +1,14 @@
+* { outline: 1px solid red; }
+
+.puss {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:80px;
+} 
+
+#glasses {
+  position: absolute;
+  top: 181px;
+  right: 569px;
+}
