@@ -1,0 +1,16 @@
+Approach the elevator doors
+Find the elevator buttons located next to or between elevator doors
+If the floor number you wish to visit is greater than the current floor push the UP button 
+If the floor number you wish to visit is less than the current floor push the DOWN button 
+When an elevator door opens look for the arrows indicating which direction the elevator is heading.  
+If the elevator is heading in a different direction than you are then do not board the elevator.
+If the elevator is heading in the same direction that you are then wait 2 seconds to allow any exiting passengers the chance to do so.
+Enter the elevator
+Turn around and face the front doors
+find the wall of buttons with the floor numbers on them.
+Scan them using your built in OCR routine.
+Extend your robot finger 
+Press the number of the floor you wish to go to.
+Wait while the elevator travels towards your floor
+When the elevator door opens look for the digital floor number along the door wall.
+If the floor number matches your floor go forward thru the doors and exit.
