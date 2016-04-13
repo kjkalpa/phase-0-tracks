@@ -55,11 +55,18 @@ for i_loop in 1..i_emp
   allergies = ""
   puts "List your allergies one at a time.  Type 'done' when finished"
   
-
+  until allergies.downcase == "done" 
+    allergy_cnt += 1
+    print "#{allergy_cnt}. "
+    allergies = gets.chomp
+    if allergies.downcase == "sunshine"
+      v_result = "Probably a vampire."
+    end
+  end
   
   puts "Is #{name} a vampire: #{v_result}"
 
 end
 
-
+print "Actually, never mind! What do these questions have to do with anything? Let's all be friends."
 
