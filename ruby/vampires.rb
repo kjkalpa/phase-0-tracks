@@ -5,7 +5,9 @@ current = DateTime.now
 print "How many employees will be processed? "
 i_emp = gets.chomp.to_i
 
+# Look through number of employees
 for i in 1..i_emp 
+  # Input answers
   print "What is your name? "
   name = gets.chomp
   print "How old are you? "
@@ -17,10 +19,12 @@ for i in 1..i_emp
   print "Would you like to enroll in the company's health insurance? (y/n) "
   insurance_response = gets.chomp.downcase
 
+  # Convert answers to Booleans
   garlic_answer = garlic_response == "y"
   insurance_answer = insurance_response == "y"
   age_answer = current.year - year_born == age
 
+  # Determine result but swithced the order vs the assignment's order
   if name.downcase == "drake cula" || name.downcase == "tu fang"
     result = "Definitely a vampire."
   elsif !age_answer && !garlic_answer && !insurance_answer
@@ -33,10 +37,12 @@ for i in 1..i_emp
     result = "Results inconclusive."
   end
 
+  # Ask for allergies
   allergy_cnt = 0
   allergies = ""
   puts "List your allergies one at a time.  Type 'done' when finished"
   
+  # Loop thru until done listing them
   until allergies.downcase == "done" 
     allergy_cnt += 1
     print "#{allergy_cnt}. "
@@ -46,7 +52,9 @@ for i in 1..i_emp
     end
   end
 
+  # Post results
   puts "Results are in for #{name}.... #{result}"
 end
 
+# Just kidding!!! 
 print "Actually, never mind! What do these questions have to do with anything? Let's all be friends."
