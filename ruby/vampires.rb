@@ -1,54 +1,36 @@
 # Find year using system date
 require "date"
-currentDate = DateTime.now
+current = DateTime.now
 
-puts "How many employees will be processed?"
-s_emp = gets.chomp
-i_emp = s_emp.to_i
+print "How many employees will be processed? "
+i_emp = gets.chomp.to_i
 
-for i_loop in 1..i_emp
+for i in 1..i_emp 
+  print "What is your name? "
+  name = gets.chomp
+  print "How old are you? "
+  age = gets.chomp.to_i
+  print "What year were you born? "
+  year_born = gets.chomp.to_i
+  print "Our company cafeteria serves garlic bread.  Should we order some for you? (y/n) "
+  garlic_response = gets.chomp.downcase
+  print "Would you like to enroll in the company's health insurance? (y/n) "
+  insurance_response = gets.chomp.downcase
 
-  puts "What is your name?"
-  name=gets.chomp
-  puts "How old are you?"
-  age=gets.chomp
-  puts "What year were you born in?"
-  year=gets.chomp
-  puts "Our company cafeteria serves garlic bread. Should we order some for you?(y/n)"
-  garlic=gets.chomp
-  puts "Would you like to enroll in the company's health insurance?(y/n)"
-  insurance=gets.chomp
-
-  # Determine actual age (close enough)
-  v_age = currentDate.year - year.to_i
-  age_right = v_age == age.to_i
-
-  # Set likes_garlic boolean
-  if garlic.downcase == "y" 
-    likes_garlic = true
-  else
-    likes_garlic = false
-  end
-
-  # Set wants_insurance boolean
-  if insurance.downcase == "y"
-    wants_insurance = true
-  else
-    wants_insurance = false
-  end
-
-  v_result = "Results inconclusive."
-
-  if age_right && (likes_garlic || wants_insurance)
-    v_result = "Probably not a vampire."
-  elsif !age_right && (!likes_garlic || !wants_insurance)
-    v_result = "Probably a vampire."
-  elsif !age_right && !likes_garlic && !wants_insurance 
-    v_result = "Almost certainly a vampire."
-  end
+  garlic_answer = garlic_response == "y"
+  insurance_answer = insurance_response == "y"
+  age_answer = current.year - year_born == age
 
   if name.downcase == "drake cula" || name.downcase == "tu fang"
-    v_result = "Definitely a vampire."
+    result = "Definitely a vampire."
+  elsif !age_answer && !garlic_answer && !insurance_answer
+    result = "Almost certainly a vampire."
+  elsif !age_answer && (!garlic_answer || !insurance_answer)
+    result = "Probably a vampire."
+  elsif age_answer && (garlic_answer || insurance_answer)
+    result = "Probably not a vampire."
+  else
+    result = "Results inconclusive."
   end
 
   allergy_cnt = 0
@@ -60,13 +42,11 @@ for i_loop in 1..i_emp
     print "#{allergy_cnt}. "
     allergies = gets.chomp
     if allergies.downcase == "sunshine"
-      v_result = "Probably a vampire."
+      result = "Probably a vampire."
     end
   end
-  
-  puts "Is #{name} a vampire: #{v_result}"
 
+  puts "Results are in for #{name}.... #{result}"
 end
 
 print "Actually, never mind! What do these questions have to do with anything? Let's all be friends."
-
