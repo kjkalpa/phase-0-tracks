@@ -88,7 +88,7 @@ end
 puts "Please enter the password"
 password = gets.chomp
 if(choice == "encrypt")
-  puts "Your encrypted password is: #{encrypt password}"
+  puts "Your encrypted password is:  #{encrypt password}"
 else
-  puts "Your decrypted password is: #{decrypt password}"
+  puts "Your decrypted password is:  #{decrypt password}"
 end
