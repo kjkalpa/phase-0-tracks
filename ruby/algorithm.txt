@@ -1,0 +1,60 @@
+ROBOT USING AN ELEVATOR
+-----------------------------------------------------------------------------------------------
+Approach the elevator doors
+Find the elevator buttons located next to or between elevator doors
+    If the floor number you wish to visit is greater than the current floor push the UP button 
+    If the floor number you wish to visit is less than the current floor push the DOWN button 
+Wait until an elevator door opens
+    Look for the arrows indicating which direction the elevator is traveling.
+    If the elevator is heading in the opposite direction than you wish to travel 
+        Then do not board the elevator.
+    If the elevator is heading in the same direction that you are 
+        then wait 2 seconds to allow any exiting passengers the chance to do so.
+        Enter the elevator
+Turn around and face the front doors
+Find the wall of buttons with the floor numbers on them.
+Scan the numbers until you find the floor you wish to travel to.
+Press the number button.
+Wait while the elevator travels towards your floor
+    Watch the elevator floor display.  
+    If the floor number matches your floor 
+    Wait for the doors to open
+    Go forward through the doors.
+
+
+MAKING MY BREAKFAST
+-----------------------------------------------------------------------------------------------
+Make Coffee
+  Fill pot with water to the 6 cup mark
+  Open coffee machine top
+  Add ground coffee to filter
+    Spoon in a tablespoon of coffee
+    Repeat until there are three tablespoons in filter
+  Press start 
+  Grab mug from cupboard
+  wait until coffee machine beeps
+  Pour coffee in mug
+
+Make Oatmeal
+  Grab Oatmeal from cupboard 
+  Grab Bowl from cabinet
+  Grab measuring cup and spoon from drawer
+  Spoon in half cup oatmeal to bowl
+  Add one cup water to bowl
+  Add pinch of salt to bowl
+  Stir ingredients
+  Place bowl in microwave
+  Enter 60 seconds on microwave
+    Wait until time counts down
+    Open microwave 
+    Stir contents in bowl
+    Repeat step two more times
+  Remove bowl from microwave 
+  Grab brown sugar from cupboard
+  Grab table spoon from drawer
+  Add one tablespoon brown sugar to bowl
+  Stir contents of bowl
+
+Grab bowl and mug
+Eat and drink
+Enjoy breakfast

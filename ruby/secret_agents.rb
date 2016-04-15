@@ -1,14 +1,15 @@
 =begin
-Encrypt Method:
-Take string input from user 
-Create a new string to store encrypted word
-Index through string through length of the string
-Move one letter forward in the alphabet for each letter in the string
-Ignore spaces 
-Do something with Z
-store encrypted word
-print encrypted word
+  Encrypt Method:
+  Take string input from user 
+  Create a new string to store encrypted word
+  Index through string through length of the string
+  Move one letter forward in the alphabet for each letter in the string
+  Ignore spaces 
+  Do something with Z
+  store encrypted word
+  print encrypted word
 =end
+
 def encrypt (phrase)
   encrypted_word = String.new
   for x in 0...phrase.length
