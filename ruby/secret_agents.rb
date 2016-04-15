@@ -8,6 +8,7 @@
   Do something with Z
   store encrypted word
   print encrypted word
+  
 =end
 
 def encrypt (phrase)
