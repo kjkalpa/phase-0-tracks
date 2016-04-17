@@ -1,22 +1,24 @@
 *{
-  font-family:Tahoma, Geneva, sans-serif;
-}
-h1{
-  font-family:Impact, Charcoal, sans-serif;
+font-family     :Tahoma, Geneva, sans-serif;
 }
 
-h2{
-  font-family:Impact, Charcoal, sans-serif;
+h1,h2 {
+font-family     :Impact, Charcoal, sans-serif;
 }
-.column-1{
-  padding: 2%;
-  display: inline-block;
-  vertical-align: top;
-  width: 40%;
+
+header {
+width           : 90%;
+padding         :4px;
+background-color: pink;
+border-radius   : 15px;
 }
-.column-2{
-  padding: 2%;
-  display: inline-block;
-  vertical-align: top;
-  width: 40%;
+
+.column-1, .column-2{
+padding         : 2%;
+margin          : 3px;  
+display         : inline-block;
+vertical-align  : top;
+background-color: #A3ACD6;
+width           : 41%;
+border-radius   : 15px;
 }
