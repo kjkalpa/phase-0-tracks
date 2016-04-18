@@ -46,3 +46,7 @@ puts "Does the array ary #{ary} contains the variable 'dog', the answer is #{ary
 #7. Initialize another array that already has a few items in it.
 ary2 = ["Dodge","Ford","BMW","MINI","Chevrolet"]
 p ary2
+
+#8. Add the two arrays together and store them in a new variable.
+ary3 = ary + ary2
+p ary3
