@@ -29,3 +29,11 @@ p ary
 #   which would have then been set to (1) instead.  We went with (2)
 ary.delete_at(2)
 p ary
+
+#4. Insert a new item at index 2
+ary.insert(2,"fish")
+p ary
+
+#5. Remove the first item of the array w/out having to refer to its index
+ary.shift
+p ary
