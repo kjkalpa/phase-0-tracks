@@ -56,3 +56,9 @@ puts "This is Build Array #{ary6}"
 
 add_to_array(ary6, "a")
 puts "This is Add Array #{ary6}"
+
+ary7 = add_to_array([], "a")
+puts "This is Add Array sample of Release2.2.1 #{ary7}"
+
+ary7 = add_to_array(["a", "b", "c", 1, 2], 3)
+puts "This is Add Array sample of Release2.2.2 #{ary7}"
