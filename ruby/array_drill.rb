@@ -37,3 +37,12 @@ p ary
 #5. Remove the first item of the array w/out having to refer to its index
 ary.shift
 p ary
+
+#6. Ask the array whether it includes a certain item. Print the result 
+#   of this method call (labeled so it prints as more than just an isolated 
+#   boolean value without any context.)
+puts "Does the array ary #{ary} contains the variable 'dog', the answer is #{ary.include?("dogs")}."
+
+#7. Initialize another array that already has a few items in it.
+ary2 = ["Dodge","Ford","BMW","MINI","Chevrolet"]
+p ary2
