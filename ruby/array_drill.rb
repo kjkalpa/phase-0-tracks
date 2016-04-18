@@ -41,7 +41,7 @@ p ary
 #6. Ask the array whether it includes a certain item. Print the result 
 #   of this method call (labeled so it prints as more than just an isolated 
 #   boolean value without any context.)
-puts "Does the array ary #{ary} contains the variable 'dog', the answer is #{ary.include?("dogs")}."
+puts "does the array contains the variable 'dog' #{ary.include?("dogs")}."
 
 #7. Initialize another array that already has a few items in it.
 ary2 = ["Dodge","Ford","BMW","MINI","Chevrolet"]
@@ -51,6 +51,8 @@ p ary2
 ary3 = ary + ary2
 p ary3
 
+#  RELEASE 2: USE ARRAYS IN METHODS
+#------------------------------------------------------
 ary6 = build_array(1,"two", nil)
 puts "This is Build Array #{ary6}"
 
