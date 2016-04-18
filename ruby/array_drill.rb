@@ -1,3 +1,13 @@
+def build_array(x, y, z)
+   ary5 = [x,y,z]
+   return ary5
+end
+
+def add_to_array(a, b)
+    a << b
+    return a
+end
+
 #        RELEASE 1: EXPLORE THE DOCS
 # ----------------------------------------------------------------------------
 #1. Initialize an empty array and store it in a variable (you can choose the name). 
@@ -40,3 +50,9 @@ p ary2
 #8. Add the two arrays together and store them in a new variable.
 ary3 = ary + ary2
 p ary3
+
+ary6 = build_array(1,"two", nil)
+puts "This is Build Array #{ary6}"
+
+add_to_array(ary6, "a")
+puts "This is Add Array #{ary6}"
