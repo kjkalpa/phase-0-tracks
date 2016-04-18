@@ -1,13 +1,3 @@
-def build_array(x, y, z)
-   ary5 = [x,y,z]
-   return ary5
-end
-
-def add_to_array(a, b)
-    a << b
-    return a
-end
-
 #        RELEASE 1: EXPLORE THE DOCS
 # ----------------------------------------------------------------------------
 #1. Initialize an empty array and store it in a variable (you can choose the name). 
