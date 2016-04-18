@@ -12,15 +12,15 @@
 =end
 
 def encrypt (phrase)
-  encrypted_word = String.new
+
   for x in 0...phrase.length
     if phrase[x] == " "
-      encrypted_word[x] = " "
+      phrase[x] = " "
     else
-      encrypted_word[x] = phrase[x].next[0]
+      phrase[x] = phrase[x].next[0]
     end
   end
-  return encrypted_word
+  return phrase
 end
 
 #print "Enter a word to encrypt: "
@@ -90,9 +90,10 @@ end
 puts "Please enter the password"
 password = gets.chomp
 if(choice == "encrypt")
-  puts "Your encrypted password is:  #{encrypt password}"
+  puts "password = #{password}"
+  jack = password
+  puts "Your encrypted password is:  #{encrypt jack}"
+  puts "after = #{password}"
 else
   puts "Your decrypted password is:  #{decrypt password}"
 end
-
-puts "the original password is #{password}"
