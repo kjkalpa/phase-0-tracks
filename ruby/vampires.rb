@@ -49,6 +49,7 @@ for i in 1..i_emp
     allergies = gets.chomp
     if allergies.downcase == "sunshine"
       result = "Probably a vampire."
+      break
     end
   end
 
