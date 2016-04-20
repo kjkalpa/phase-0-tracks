@@ -39,10 +39,9 @@ p "The mystery of the missing first letter".slice!(1..-1)
 p "The mystery of the missing first letter"[1..-1]
 
 
-# “Elementary  ,    my   dear      Watson!”.<???>""
-# => “Elementary, my dear Watson!”
-# "Elementary12,1234my123dear123456Watson!"
-p "Elementary  ,    my   dear      Watson!".squeeze.gsub(' ,',',')
+# "Elementary,    my   dear        Watson!".<???>
+# => "Elementary, my dear Watson!"
+p "Elementary,    my   dear        Watson!".squeeze
 
 #“z”.<???>
 # => 122 
