@@ -51,12 +51,3 @@ p "z".ord
 #“How many times does the letter ‘a’ appear in this string?”.<???>
 #=> 4
 p "How many times does the letter ‘a’ appear in this string?".count "a"
-
-
-
-
-
-
-
-
-
