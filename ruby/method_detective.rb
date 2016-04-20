@@ -46,6 +46,7 @@ p "Elementary,    my   dear        Watson!".squeeze
 #“z”.<???>
 # => 122 
 # (What is the significance of the number 122 in relation to the character z?)
+# Answer: The ascii code for 'z' is 122.
 p "z".ord
 
 #“How many times does the letter ‘a’ appear in this string?”.<???>
