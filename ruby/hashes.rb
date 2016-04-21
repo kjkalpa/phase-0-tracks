@@ -18,9 +18,13 @@ budget     = gets.chomp.to_i
 print "What decade does #{name} love?  "
 decade     = gets.chomp
 
+system "clear"
+
 #Convert any user input to the appropriate data type.
 #Add to hash table
+client_info = {name: name, age: age, children: children, theme: theme, loves_color: color_love, hates_color: color_hate, decade: decade}
 #Print the hash back out to the screen when the designer has answered all of the questions.
+client_info.each {|key, value| puts "#{key}: #{value}" }
 
 #Give the user the opportunity to update a key (no need to loop, once is fine). 
 # => After all, sometimes users make mistakes! If the designer says "none", skip it. 
