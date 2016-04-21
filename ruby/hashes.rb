@@ -15,7 +15,7 @@ print "What color does #{name} hate? "
 color_hate = gets.chomp
 print "What's the clients budget? "
 budget     = gets.chomp.to_i
-print "What decade does #{name} love? "
+print "What decade does #{name} love?  "
 decade     = gets.chomp
 
 #Convert any user input to the appropriate data type.
