@@ -41,10 +41,26 @@ puts "Type 'none' to finish or the key name to change it."
 change_key = gets.chomp.downcase
 
 #If answer is not none then perform change
+if change_key != "none"
+  print "What is the NEW answer for #{change_key}? "
 #If key to change is one of the integers then accept an integer
+  if change_key == "age" or change_key == "children"
+    new_value = gets.chomp.to_i
+  else
+    new_value = gets.chomp
+  end
 #Make sure key to change is indeed one of the keys
+  if client_info.has_key?(change_key.to_sym)
+    client_info[change_key.to_sym] = new_value
+  else
+    puts "You're trying to add a key that doesn't exist.  Goodbye!"
+  end
 #Print the latest version of the hash, and exit the program.
-
+  puts " "
+  client_info.each {|key, value| puts "#{key}: #{value}" }  
+  puts " "
+end
+puts "Thank you. "
 
 
 
