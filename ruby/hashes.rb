@@ -33,7 +33,20 @@ client_info.each {|key, value| puts "#{key}: #{value}" }
 # => will turn them into symbols, which would be quite handy here.) 
 # => You can assume the user will correctly input a key that exists in your hash -- no need to handle user errors.
 
+puts " " 
+puts " " 
+puts "Your keys and answers have printed above."
+puts "Are there any answers you wish to change?"
+puts "Type 'none' to finish or the key name to change it."
+change_key = gets.chomp.downcase
+
 #If answer is not none then perform change
 #If key to change is one of the integers then accept an integer
 #Make sure key to change is indeed one of the keys
 #Print the latest version of the hash, and exit the program.
+
+
+
+
+
+
