@@ -15,7 +15,7 @@ print "What color does #{name} hate? "
 color_hate = gets.chomp
 print "What's the clients budget? "
 budget     = gets.chomp.to_i
-print "What decade does #{name} love?  "
+print "What decade does #{name} love? "
 decade     = gets.chomp
 
 system "clear"
@@ -61,8 +61,3 @@ if change_key != "none"
   puts " "
 end
 puts "Thank you. "
-
-
-
-
-
