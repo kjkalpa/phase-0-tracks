@@ -1,5 +1,23 @@
 #Create the hash table
+client_info = Hash.new
 #Prompt the designer/user for all of this information.
+print "What is the client's name? "
+name       = gets.chomp
+print "What is #{name}'s age? "
+age        = gets.chomp.to_i
+print "How many children does #{name} have? "
+children   = gets.chomp.to_i
+print "What theme does #{name} like? "
+theme      = gets.chomp
+print "What color does #{name} love? "
+color_love = gets.chomp
+print "What color does #{name} hate? "
+color_hate = gets.chomp
+print "What's the clients budget? "
+budget     = gets.chomp.to_i
+print "What decade does #{name} love? "
+decade     = gets.chomp
+
 #Convert any user input to the appropriate data type.
 #Add to hash table
 #Print the hash back out to the screen when the designer has answered all of the questions.
