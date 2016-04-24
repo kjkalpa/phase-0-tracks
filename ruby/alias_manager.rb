@@ -17,7 +17,17 @@ alphabet.
   Assign letter selected to array
 =end  
 
+
+vowels="AEIOU"
 kk="kyria kalpa".split(' ').reverse.join(' ').split('')
 
 p kk
 
+kk.each do |letter|
+  tmp=letter.next[0]
+  if vowels.include?(letter.upcase)
+    puts "#{letter} It's a vowel           Next letter is #{tmp}"
+  else
+    puts "#{letter} It's NOT a vowel       Next letter is #{tmp}"
+  end
+end
