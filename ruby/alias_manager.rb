@@ -23,17 +23,18 @@ kk="kyria kalpa".split(' ').reverse.join(' ').split('')
 
 p kk
 
-kk.each do |letter|
-  tmp=letter.next[0]
+kk.map! do |letter|
+  next_letter=letter.next[0]
   if vowels.include?(letter.upcase)
-    until vowels.include?(tmp.upcase)
-          puts "#{letter} It's a vowel           Next letter is #{tmp}"
-      tmp=tmp.next[0]
+    until vowels.include?(next_letter.upcase)
+          puts "#{letter} It's a vowel           Next letter is #{next_letter}"
+      next_letter=next_letter.next[0]
     end
   else
-    while vowels.include?(tmp.upcase)
-          puts "#{letter} It's NOT a vowel       Next letter is #{tmp}"
-      tmp=tmp.next[0]
+    while vowels.include?(next_letter.upcase)
+          puts "#{letter} It's NOT a vowel       Next letter is #{next_letter}"
+      next_letter=next_letter.next[0]
     end
   end
+  letter=next_letter
 end
