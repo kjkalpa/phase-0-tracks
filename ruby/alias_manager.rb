@@ -26,8 +26,14 @@ p kk
 kk.each do |letter|
   tmp=letter.next[0]
   if vowels.include?(letter.upcase)
-    puts "#{letter} It's a vowel           Next letter is #{tmp}"
+    until vowels.include?(tmp.upcase)
+          puts "#{letter} It's a vowel           Next letter is #{tmp}"
+      tmp=tmp.next[0]
+    end
   else
-    puts "#{letter} It's NOT a vowel       Next letter is #{tmp}"
+    while vowels.include?(tmp.upcase)
+          puts "#{letter} It's NOT a vowel       Next letter is #{tmp}"
+      tmp=tmp.next[0]
+    end
   end
 end
