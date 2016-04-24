@@ -16,31 +16,45 @@ alphabet.
 
   Assign letter selected to array
 =end  
+#Add loop to keep entering name until user hits quit
 
 
 vowels="AEIOU"
 
-kk = "Bizou Sioux Zoolander"
-kk = 'Felicia Torrez'
-p kk
-kk = kk.split(' ').reverse.join(' ').split('')
+print "Enter the name you wish to scramble: "
+answer = gets.chomp
 
-kk.map! do |letter|
-  next_letter=letter.next[0]
-  if vowels.include?(letter.upcase)
-    until vowels.include?(next_letter.upcase)
-      next_letter=next_letter.next[0]
+until answer.downcase == "quit"
+
+  puts "Original name #{answer}"
+  name = answer.split(' ').reverse.join(' ').split('')
+
+  name.map! do |letter|
+    next_letter=letter.next[0]
+    if vowels.include?(letter.upcase)
+      until vowels.include?(next_letter.upcase)
+        next_letter=next_letter.next[0]
+      end
+    else
+      while vowels.include?(next_letter.upcase)
+        next_letter=next_letter.next[0]
+      end
     end
-  else
-    while vowels.include?(next_letter.upcase)
-      next_letter=next_letter.next[0]
+    if next_letter == "!"
+      letter = " "
+    else
+      letter=next_letter
     end
   end
-  if next_letter == "!"
-    letter = " "
-  else
-    letter=next_letter
-  end
+
+  name = name.join('')
+
+  puts "scrambled name #{name}"
+
+  print "Enter the name you wish to scramble: "
+  answer = gets.chomp
+
 end
 
-puts kk.join('')
+
+
