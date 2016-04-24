@@ -19,22 +19,28 @@ alphabet.
 
 
 vowels="AEIOU"
-kk="kyria kalpa".split(' ').reverse.join(' ').split('')
 
+kk = "Bizou Sioux Zoolander"
+kk = 'Felicia Torrez'
 p kk
+kk = kk.split(' ').reverse.join(' ').split('')
 
 kk.map! do |letter|
   next_letter=letter.next[0]
   if vowels.include?(letter.upcase)
     until vowels.include?(next_letter.upcase)
-          puts "#{letter} It's a vowel           Next letter is #{next_letter}"
       next_letter=next_letter.next[0]
     end
   else
     while vowels.include?(next_letter.upcase)
-          puts "#{letter} It's NOT a vowel       Next letter is #{next_letter}"
       next_letter=next_letter.next[0]
     end
   end
-  letter=next_letter
+  if next_letter == "!"
+    letter = " "
+  else
+    letter=next_letter
+  end
 end
+
+puts kk.join('')
