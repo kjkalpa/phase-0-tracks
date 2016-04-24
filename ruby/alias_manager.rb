@@ -20,13 +20,14 @@ alphabet.
 
 
 vowels="AEIOU"
+agent_list = Hash.new
 
-print "Enter the name you wish to scramble: "
+print "Enter the name you wish to scramble. Type 'quit' to end: "
 answer = gets.chomp
 
 until answer.downcase == "quit"
 
-  puts "Original name #{answer}"
+  #puts "Original name #{answer}"
   name = answer.split(' ').reverse.join(' ').split('')
 
   name.map! do |letter|
@@ -49,12 +50,17 @@ until answer.downcase == "quit"
 
   name = name.join('')
 
-  puts "scrambled name #{name}"
+  agent_list[:"#{answer}"] = "#{name}"
 
-  print "Enter the name you wish to scramble: "
+  #puts "scrambled name #{name}"
+
+  print "Enter the name you wish to scramble. Type 'quit' to end: "
   answer = gets.chomp
 
 end
+
+agent_list.each {|secret_name, agent_name| puts "#{agent_name} is actually #{secret_name}"}
+
 
 
 
