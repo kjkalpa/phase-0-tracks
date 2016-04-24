@@ -16,3 +16,8 @@ alphabet.
 
   Assign letter selected to array
 =end  
+
+kk="kyria kalpa".split(' ').reverse.join(' ').split('')
+
+p kk
+
