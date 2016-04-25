@@ -1,27 +1,19 @@
-letters = ["a", "b", "c", "d", "e"]
-new_letters = []
+name = "FeliciA Torres".split(' ').reverse.join(' ').split('')
+vowels = "aeiou"
+p name
 
-puts "Original data: "
-p letters
-p new_letters
-
-
-letters.each do |letter|
-  new_letters << letter.next
+name.map! do |letter|
+  is_vowel = vowels.include?(letter.downcase)
+  next_letter = letter.next[0]
+  
+  until vowels.include?(next_letter.downcase) == is_vowel
+    next_letter = next_letter.next[0]
+  end
+  if letter == " "
+    letter = " "
+  else
+    letter = next_letter
+  end
 end
-
-puts "After .each call:"
-p letters
-p new_letters
-
-
-numbers = {1 => 'one', 2 => 'two', 3 => 'three'}
-
-numbers.each do |digit, word| 
-  puts "#{digit} is spelled out as #{word}"
-end
-
-
-
-
-
+  
+p name.join('')
