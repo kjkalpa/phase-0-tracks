@@ -19,29 +19,32 @@ alphabet.
 #Add loop to keep entering name until user hits quit
 
 
-vowels="aeiou"
+vowels="AEIOU"
 agent_list = Hash.new
 
 print "Enter the name you wish to scramble. Type 'quit' to end: "
 answer = gets.chomp
 
 until answer.downcase == "quit"
+
+  #puts "Original name #{answer}"
   name = answer.split(' ').reverse.join(' ').split('')
 
-#Check if letter is a vowel.  Vowel = true, not a vowel = false
-#Get next letter and continue looping thru letters until statement is true.
-#True for vowel, False for not a vowel
   name.map! do |letter|
-    is_vowel = vowels.include?(letter.downcase)
-    next_letter = letter.next[0]
-    
-    until vowels.include?(next_letter.downcase) == is_vowel
-      next_letter = next_letter.next[0]
+    next_letter=letter.next[0]
+    if vowels.include?(letter.upcase)
+      until vowels.include?(next_letter.upcase)
+        next_letter=next_letter.next[0]
+      end
+    else
+      while vowels.include?(next_letter.upcase)
+        next_letter=next_letter.next[0]
+      end
     end
-    if letter == " "
+    if next_letter == "!"
       letter = " "
     else
-      letter = next_letter
+      letter=next_letter
     end
   end
 
@@ -57,7 +60,6 @@ until answer.downcase == "quit"
 end
 
 agent_list.each {|secret_name, agent_name| puts "#{agent_name} is actually #{secret_name}"}
-
 
 
 
