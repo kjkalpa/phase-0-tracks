@@ -58,7 +58,7 @@ example_genders = ["Androgyne","Bigender","FTM","Gender Nonconforming","Intersex
 example_ethnicities = ["Eurasian", "European", "Black", "White", "Latino", "None of your business", "Asian", "Hawaiian"]
 
 #example_genders.length.times do |i|
-num_of_santas = 350
+num_of_santas = 35
 
 num_of_santas.times do |i|
   santas << Santa.new(example_genders.sample, example_ethnicities.sample)
@@ -69,15 +69,18 @@ end
 # p santas[0]
 # ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
    
-santas[0].get_mad_at("Prancer")
-# p santas[0]
 santas[0].gender ="No Gender"
-# p santas[0]
+p santas[0]
+
+santas[0].get_mad_at("Prancer")
+p santas[0]
 
 santas[-1].celebrate_birthday
 puts "---------------------"
 puts "The last Santa's new age is #{santas[-1].age}"
 puts "The last Sants's ethnicity is #{santas[-1].ethnicity}"
+
+
 
 
 
