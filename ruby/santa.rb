@@ -21,7 +21,21 @@ class Santa
   end
 
   def get_mad_at(reindeer)
-    
+    i = @reindeer_ranking.index(reindeer)
+    @reindeer_ranking.delete(reindeer)
+    @reindeer_ranking.push(reindeer)
+  end
+
+  def gender=(new_gender)
+    @gender =new_gender
+  end
+
+  def age
+    @age
+  end
+
+  def ethnicity 
+    @ethnicity
   end
 
 end
@@ -43,5 +57,21 @@ end
   
 santas[0].celebrate_birthday
 p santas[0]
+
+# ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
+   
+santas[0].get_mad_at("Prancer")
+p santas[0]
+santas[0].gender ="No Gender"
+p santas[0]
+p santas[0].age
+p santas[0].ethnicity
+
+
+
+
+
+
+
 
 
