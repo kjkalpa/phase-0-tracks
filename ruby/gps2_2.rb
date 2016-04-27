@@ -34,6 +34,7 @@ def create_list(grocery_list)
   grocery_array.each do |x|
     grocery_hash[x] = 1
   end
+  print_list(grocery_hash)
   return grocery_hash
 end
 
