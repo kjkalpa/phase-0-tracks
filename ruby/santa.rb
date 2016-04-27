@@ -16,6 +16,14 @@ class Santa
     cookie
   end
 
+  def celebrate_birthday
+    @age += 1
+  end
+
+  def get_mad_at(reindeer)
+    
+  end
+
 end
 
 # Kris = Santa.new
@@ -33,5 +41,7 @@ example_genders.length.times do |i|
   santas << Santa.new(example_genders[i], example_ethnicities[i])
 end
   
+santas[0].celebrate_birthday
+p santas[0]
 
 
