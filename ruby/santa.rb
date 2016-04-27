@@ -75,6 +75,8 @@ p santas[0]
 santas[0].get_mad_at("Prancer")
 p santas[0]
 
+santas[0].speak
+
 santas[-1].celebrate_birthday
 puts "---------------------"
 puts "The last Santa's new age is #{santas[-1].age}"
