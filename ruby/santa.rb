@@ -52,16 +52,16 @@ prng = Random.new
 santas = []
 
 # example_genders = ["agender", "female", "bigender", "male", "female", "gender fluid", "N/A"]
-example_genders = ["Androgyne","Bigender","FTM","Gender Nonconforming","Intersex","MTF","Non-binary","Pangender"]
+gender_list = ["Androgyne","Bigender","FTM","Gender Nonconforming","Intersex","MTF","Non-binary","Pangender"]
 
 # example_ethnicities = ["black", "Latino", "white", "Japanese-African", "prefer not to say", "Mystical Creature (unicorn)", "N/A"]
-example_ethnicities = ["Eurasian", "European", "Black", "White", "Latino", "None of your business", "Asian", "Hawaiian"]
+ethnicities_list = ["Eurasian", "European", "Black", "White", "Latino", "None of your business", "Asian", "Hawaiian"]
 
 #example_genders.length.times do |i|
 num_of_santas = 350
 
 num_of_santas.times do |i|
-  santas << Santa.new(example_genders.sample, example_ethnicities.sample)
+  santas << Santa.new(gender_list.sample, ethnicities_list.sample)
   santas[i].age = prng.rand(0..140)
   puts "Santa # #{i+1} is a #{santas[i].gender}, #{santas[i].ethnicity}, #{santas[i].age} years old"
 end
@@ -74,6 +74,8 @@ p santas[0].gender
 
 santas[0].get_mad_at("Prancer")
 p santas[0]
+
+santas[0].speak
 
 santas[-1].celebrate_birthday
 puts "---------------------"
