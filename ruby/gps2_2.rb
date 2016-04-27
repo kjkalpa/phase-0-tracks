@@ -38,11 +38,6 @@ def create_list(grocery_list)
 end
 
 def add_item(hash_name, item, qty=1)
-  # if qty.class == Array 
-  #   hash_name[item] = 1
-  # else 
-  #   hash_name[item] = qty
-  # end
   hash_name[item] = qty
   hash_name
 end
@@ -78,6 +73,7 @@ p new_list = add_item(new_list, "Onions", 1)
 p new_list = add_item(new_list, "Ice_Cream", 4)
 p new_list = remove_item(new_list, "Lemonade")
 p new_list = update_item(new_list, "Ice_Cream",1)
+puts "----------------------------------------------"
 print_list(new_list)
 
 
