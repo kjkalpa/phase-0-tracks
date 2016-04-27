@@ -78,6 +78,7 @@ p new_list = add_item(new_list, "Onions", 1)
 p new_list = add_item(new_list, "Ice_Cream", 4)
 p new_list = remove_item(new_list, "Lemonade")
 p new_list = update_item(new_list, "Ice_Cream",1)
+puts "----------------------------------------------"
 print_list(new_list)
 
 
