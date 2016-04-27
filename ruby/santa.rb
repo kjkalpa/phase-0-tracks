@@ -70,7 +70,7 @@ end
 # ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
    
 santas[0].gender ="No Gender"
-p santas[0]
+p santas[0].gender
 
 santas[0].get_mad_at("Prancer")
 p santas[0]
@@ -79,6 +79,7 @@ santas[-1].celebrate_birthday
 puts "---------------------"
 puts "The last Santa's new age is #{santas[-1].age}"
 puts "The last Sants's ethnicity is #{santas[-1].ethnicity}"
+
 
 
 
