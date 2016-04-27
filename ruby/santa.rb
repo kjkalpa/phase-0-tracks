@@ -58,7 +58,7 @@ example_genders = ["Androgyne","Bigender","FTM","Gender Nonconforming","Intersex
 example_ethnicities = ["Eurasian", "European", "Black", "White", "Latino", "None of your business", "Asian", "Hawaiian"]
 
 #example_genders.length.times do |i|
-num_of_santas = 35
+num_of_santas = 350
 
 num_of_santas.times do |i|
   santas << Santa.new(example_genders.sample, example_ethnicities.sample)
