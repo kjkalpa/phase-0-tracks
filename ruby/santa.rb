@@ -24,7 +24,7 @@ class Santa
   end
 
   def get_mad_at(reindeer)
-    i = @reindeer_ranking.index(reindeer)
+    #i = @reindeer_ranking.index(reindeer)
     @reindeer_ranking.delete(reindeer)
     @reindeer_ranking.push(reindeer)
   end
