@@ -22,6 +22,7 @@ class Clown
     @hair_color = hair_color
     @prop = prop
     @shoe_size = shoe_size
+
   end
 
   def juggle(name, prop)
@@ -43,11 +44,30 @@ class Clown
     puts "#{name} gets into car"
   end
 
+  def shoe_remark(shoe_size)
+    if shoe_size <= 18
+      puts "----- Those are small shoes for a clown"
+      print "----- Would you like some larger shoes (y/n)? "
+      shoe_answer = gets.chomp
+      if shoe_answer.downcase == "y"
+          print "Enter a new shoe size: " 
+          new_shoe_size = gets.chomp.to_i
+          @shoe_size = new_shoe_size
+          puts "  Clown's new shoe size is #{@shoe_size}"
+      end
+    elsif shoe_size > 30
+      puts "----- Now those are some great floppy clown shoes!!!!"
+    else
+      puts "----- That's a decent shoe size for a clown."
+    end
+  end
+
 end
 
-clown1 = Clown.new("Bozo", "Red", "Pins", 33)
+clown1 = Clown.new("Bozo", "Red", "Pins", 18)
+clown1.shoe_remark(clown1.shoe_size)
 
-clown1.juggle(clown1.name, clown1.prop)
+clown1.juggle(clown1.name, clown1.prop) 
 clown1.prop = "Chain saws"
 clown1.juggle(clown1.name, clown1.prop)
 clown1.mime
