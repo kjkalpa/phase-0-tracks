@@ -13,6 +13,41 @@
 
 
 
+class Clown
+  attr_reader   :shoe_size, :name
+  attr_accessor   :prop, :hair_color
+
+  def initialize(name, hair_color, prop, shoe_size)
+    @name = name
+    @hair_color = hair_color
+    @prop = prop
+    @shoe_size = shoe_size
+  end
+
+  def juggle(name, prop)
+    puts "#{name} is juggling #{prop}"
+  end
+
+  def honk
+    puts "honk honk honk honk"
+  end
+
+  def mime
+    puts "#{name} a French clown and stuck in a box"
+    puts " --"
+    puts "|  |"
+    puts " --"
+  end
+
+  def pile_in_car
+    puts "#{name} gets into car"
+  end
+
+end
+
+
+
+
 
 
 
