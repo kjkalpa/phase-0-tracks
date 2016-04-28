@@ -45,7 +45,14 @@ class Clown
 
 end
 
+clown1 = Clown.new("Bozo", "Red", "Pins", 33)
 
+clown1.juggle(clown1.name, clown1.prop)
+clown1.prop = "Chain saws"
+clown1.juggle(clown1.name, clown1.prop)
+clown1.mime
+clown1.pile_in_car
+puts clown1
 
 
 
