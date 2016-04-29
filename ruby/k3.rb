@@ -1,99 +1,84 @@
-=begin
-  Encrypt Method:
-  Take string input from user 
-  Create a new string to store encrypted word
-  Index through string through length of the string
-  Move one letter forward in the alphabet for each letter in the string
-  Ignore spaces 
-  Do something with Z
-  store encrypted word
-  print encrypted word
-  
-=end
+def word_swapper(pair_of_words)   
+  pair_of_words.split(' ').reverse.join(' ') 
+end
 
-def encrypt (phrase)
+# p word_swapper('Felicia Torres') == "Torres Felicia"
+def vowel_swapper(string)   
+  answer = ''   
+  characters = string.split('')
+  vowels = 'aeiou'
+  vowel_conversions = {'a' => 'e', 'e' => 'i', 'i' => 'o', 'o' => 'u', 'u' => 'a'}   
+    #look at these characters   
+    characters.each do |character|     
+      if vowels.include?(character)     #if its a vowel, swap it, and put in answer       
+        answer += vowel_conversions[character]     
+      else     #otherwise put it in answer       
+        answer += character
+      end   
+  end   
+  answer 
+end
 
-  for x in 0...phrase.length
-    if phrase[x] == " "
-      phrase[x] = " "
-    else
-      phrase[x] = phrase[x].next[0]
-    end
+# p vowel_swapper('abc de') == 'ebc di' 
+# p vowel_swapper('ux c') == 'ax c'
+def cons_to_cons_converter(cons)   
+  if cons == 'z'     
+    'b'   
+  else     
+    legend = "bcdfghjklmnpqrstvwxyz"     #1. find where we are at     
+    current_location = legend.index(cons)     #2. get the next number     
+    next_location = current_location + 1     #3. return the letter of that number     
+    next_letter = legend[next_location]   
+  end 
+end
+
+# p cons_to_cons_converter('z') == 'b' 
+# p cons_to_cons_converter('f') == 'g'
+def cons_swapper(string)   
+  characters = string.chars 
+  answer = ''   
+  cons = "bcdfghjklmnpqrstvwxyz"
+  characters.each do |character|     
+    if cons.include?(character.downcase)       
+      #swap it and add it       
+      swapped_letter = cons_to_cons_converter(character.downcase)       
+      answer += swapped_letter     
+    else     #otherwise put it in answer       
+      answer += character     
+    end   
   end
-  return phrase
+  answer
 end
 
-#print "Enter a word to encrypt: "
-#word = gets.chomp
+# p cons_swapper('abc dez') == 'acd feb'
+def name_aliaser(agent_name)   
+  #1. swap the words   
+  reversed_agent_name = word_swapper(agent_name)   
+  #2. sub out all the vowels   
+  name_vowel_switched = vowel_swapper(reversed_agent_name)   
+  #3. sub out all the consants   
+  name_con_switched = cons_swapper(name_vowel_switched)
+  name_con_switched.split(' ').map{|name| name.capitalize}.join(' ')   
+  # "vussit gimodoe" => ["vussit", "gimodoe"] =>["Vussit", "Gimodoe"] 
+end
 
-#enc_word = encrypt word
-#puts "#{enc_word}"
-
-=begin
-  Decrypt Method:
-  Take string input from user
-  Create a new string to store decryted word
-  Create alphabet array 
-  Index through string through length of the string
-  Use that letter in our array to find the previous letter
-  Exception: if letter is a, we need an if statement to output z
-  Add letter to decrypted word
-  store decrypted word
-=end
-def decrypt (phrase)
-  decrypted_word = String.new
-  abc_index = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-  for x in 0...phrase.length
-    if phrase[x] == " "
-      decrypted_word[x] = " "
-    else
-      y_pos = abc_index.index(phrase[x])
-      if y_pos == 0
-        decrypted_word[x] = abc_index[25]
-        #print abc_index[25]
-      elsif y_pos == 26
-        decrypted_word[x] = abc_index[51]
-      else
-        decrypted_word[x] = abc_index[y_pos-1]
-        #print abc_index[y_pos-1]
-      end
-    end
+# p name_aliaser('Felicia Torres') == "Vussit Gimodoe" #Release 1 + 2 spy = 'a'
+all_spies = {}
+loop do   
+  puts "enter your spy name - First Last, quit to exit"   
+  spy = gets.chomp
+  if spy == 'quit' || spy == ''     
+    break   
   end
-  return decrypted_word
+  puts name_aliaser(spy)   
+  all_spies[spy] = name_aliaser(spy) 
+end
+  puts 'All of the spies!' 
+  all_spies.each do |key, value|   
+  puts "#{key} => #{value}" 
 end
 
-#dec_word = decrypt(enc_word)
-#puts "#{dec_word}"
-
-decrypt(encrypt("swordfish"))
-=begin 
-  This nested method call works because it performs the innermost parenthesis
-  and that returns a value and that value is the argument for the next 
-  method.
-=end
-
-=begin
-  Prompt the user for an option to encrypt or decrypt
-  Ask user for the password
-  Determine if they want to enc. or dec.
-  Perform appropriate task
-  Print to the screen
-=end
 
 
-choice = String.new
-until choice == "encrypt" || choice == "decrypt"
-  puts "Hey! Would you like to encrypt or decrypt your password? encrypt/decrypt"
-  choice = gets.chomp
-  choice.downcase!
-end
-puts "Please enter the password"
-password = gets.chomp
-if(choice == "encrypt")
-  puts "password = #{password}"
-  jack = password
-  puts "Your encrypted password is:  #{encrypt jack}"
-  puts "after = #{password}"
-else
-  puts "Your decrypted password is:  #{decrypt password}"
-end
+
+
