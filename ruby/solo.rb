@@ -48,7 +48,7 @@ class Clown
     puts "Now exiting the car is #{name}. He has #{hair_color} hair, juggles #{prop} and wears size #{shoe_size} shoes.  "
   end
 
-  def shoe_remark()
+  def shoe_remark(shoe_size)
     if shoe_size <= 18
       puts "----- Those are small shoes for a clown"
       print "----- Would you like some larger shoes (y/n)? "
@@ -103,8 +103,7 @@ loop do
 
   clowns << Clown.new(clown_name, clown_hair, clown_prop, clown_shoes)
 
-  # clowns[clown_index].shoe_remark(clown_shoes)
-  clowns[clown_index].shoe_remark
+  clowns[clown_index].shoe_remark(clown_shoes)
   clowns[clown_index].pile_in_car
   puts " "
  
