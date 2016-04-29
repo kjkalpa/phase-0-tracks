@@ -1,13 +1,24 @@
 module Shout
-  def self.yell_angrily(words)
+  def yell_angrily(words)
     words + "!!!" + " :("
   end
 
-  def self.yelling_happily(words)
+  def yelling_happily(words)
     words + ":)"
   end
 
 end
 
 
-puts x = Shout.yelling_happily("Yes this worked ")
+class Angry_driver
+  include Shout
+end
+
+class Angry_birds
+  include Shout
+end
+
+
+
+# puts x = Shout.yelling_happily("Yes this worked ")
+
