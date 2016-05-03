@@ -116,6 +116,10 @@ clown_index.times do |x|
   clowns[x].exit_car
 end
 
+# Added after the assignment was turned in 
+# but it should have looked like this:
+# clowns.each {|clwn| clwn.exit_car} 
+
 
 
 
