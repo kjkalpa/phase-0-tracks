@@ -8,19 +8,23 @@
 
 // Accept a string and return a string
 function reverse_word(word) {
-  var new_word 
-  // var length = word.length - 1
+  var new_word = ""
+  var length = word.length - 1
 
-  for (var i = 13; i > 0; i--) {
-    new_word += word[i];
-    console.log(new_word)
-}
+  for (var i = length; i >= 0 ; i--) {
+  new_word += word[i];
+  }
+
   return new_word;
 }
 
 var phrase = "Take this Ruby";
-var bk_phrase = "";
+var isTrue = true
 
-bk_phrase = reverse_word(phrase);
+if (isTrue) {
+  console.log(reverse_word(phrase));
+}
+  else {
+    console.log("Not true");
+}
 
-console.log(bk_phrase);
