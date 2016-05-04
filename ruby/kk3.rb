@@ -1,50 +1,49 @@
+def calculate (num1, op, num2)
 
-house = {
-  less_fancy_name: 'palace',
-  bedroom: [
-   'bed',
-   'dresser',
-   'night stand'
-  ],
-  kitchen: [
-    'table',
-    'chairs'
-  ],
-  bathroom: [
-    'toilet',
-    'shower/tub',
-    'sink'
-  ],
-  living_room: [
-    'couch',
-    'coffe table',
-    'TV'
-  ],
-  garge: {
-    less_fancy_name: 'car hold',
-    number_of_cars: 2,
-    number_of_shovels: 5
-  },
-}
+  begin
+    return num1.send(op,num2)
+  rescue
+    puts "This is an incorrect equation.  Program aborted"
+    return "quit"
+  end
 
-puts house
-puts
-puts house[:less_fancy_name]
-puts
-puts house[:bedroom]
-puts
-puts house[:bedroom].reverse
-puts
-puts house[:living_room].count
-puts house[:living_room]
-puts house[:living_room][0]
-puts house[:living_room][2]
-puts
-puts house[:garge][:less_fancy_name].upcase
-puts house[:garge][:number_of_cars]
-puts house[:garge][:number_of_shovels]
-puts
-puts house[:kitchen]
-puts
-house[:kitchen].push('fridge', 'stove', 'dishwaser')
-puts house[:kitchen]
+end
+
+store_problem = []
+#Question 3
+loop do
+    puts "Enter a simple math operation to perform or type done to end."
+    begin
+        puts "Please enter the equation correctly with a space before and after the operator: "
+        problem=gets.chomp
+    end while problem.strip == ''
+
+    if problem == 'done' || problem == 'quit'
+      break
+    end
+
+    problem_ary = problem.split(' ')
+    problem_ary
+
+    prob_num1 = problem_ary[0].to_i
+    prob_num2 = problem_ary[2].to_i
+    prob_oper = problem_ary[1]
+
+    answer = calculate(prob_num1,prob_oper,prob_num2)
+
+    if answer == 'quit'
+      break
+    end
+
+    problem_ary << "="
+    problem_ary << answer.to_s
+
+    output = problem_ary.join(' ')
+    puts output
+
+    store_problem.push(output)
+
+end
+
+puts "#{store_problem.length} calculations performed: "
+store_problem.each {|x| puts "#{x}"}
