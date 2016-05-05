@@ -4,9 +4,8 @@
 # We spent [3] hours on this challenge.
 
 # EXPLANATION OF require_relative
-# Include local file with the name between quotes.  Uses .bashprofile to locate file
-# 
-#
+# Include local file with the name between quotes for program to use.
+
 require_relative 'state_data'
 
 class VirusPredictor
@@ -129,6 +128,25 @@ VirusPredictor.national_report
 
 #=======================================================================
 # Reflection Section
+
+
+#Q. What are the differences between the two different hash syntaxes shown in the state_data file?
+#A. We had symbols and strings as Key values.  The value of the hash was a hash too.
+
+#Q. What does require_relative do? How is it different from require?
+#A. require_relative loads a file in the same directory as the source code into the program for it to use.  
+
+#Q. What are some ways to iterate through a hash?
+#A. Use of .each and .each_key
+
+#Q. When refactoring virus_effects, what stood out to you about the variables, if anything?
+#A. They were instance variables and weren't necessary.
+
+#Q. What concept did you most solidify in this challenge?
+#A. Classes and hashes.  I learned about the use of self and private in a class.
+
+
+
 
 
 
