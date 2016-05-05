@@ -1,7 +1,7 @@
 # Virus Predictor
 
-# I worked on this challenge [by myself, with: ].
-# We spent [#] hours on this challenge.
+# I worked on this challenge with Nadav Appel.
+# We spent [3] hours on this challenge.
 
 # EXPLANATION OF require_relative
 # Include local file with the name between quotes.  Uses .bashprofile to locate file
@@ -27,7 +27,6 @@ class VirusPredictor
     end
   end
 
-  
 # Calling two methods
   def virus_effects
     predicted_deaths #(@population_density, @population, @state)
