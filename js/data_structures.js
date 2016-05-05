@@ -6,8 +6,7 @@ colors.push("magenta");
 
 names.push("Brittany");
 
-
-
+console.log("----- Release 1 -----")
 var horseColors = {}
 console.log(horseColors)
 // loop through length of one array
@@ -17,18 +16,18 @@ for (var i = 0; i < names.length; i++) {
   horseColors[colors[i]] = names[i];
 };
 
-
 console.log(horseColors)
 
+console.log("----- Release 2 -----")
 function Car(type, yearMade, works) {
 this.type = type;
 this.yearMade = yearMade;
 this.works = works;
 
-this.start_engine = function() { if (this.works) {console.log("Vroom!"); }
+this.start_engine = function() { 
+  if (this.works) {console.log("Vroom!"); }
   else {console.log("Sputter...");}
-};
-
+  };
 };
 
 var oldCar = new Car("Honda", 1970, true);
@@ -42,3 +41,14 @@ car2.start_engine();
 var car3 = new Car("Mercury", 2001, false);
 console.log(car3);
 car3.start_engine();
+
+console.log("----- Release 3 -----")
+
+for (var prop in car3) {
+  console.log("car3." + prop + " = " + car3[prop]);
+}
+
+
+
+
+
