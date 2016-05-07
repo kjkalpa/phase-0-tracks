@@ -20,7 +20,6 @@ function generate_words(num_words){
 }
 
 
-
 function compare_length(expressions) {
   var hold_string = ""
   for (var i = 0; i < expressions.length; i++) {
@@ -87,7 +86,7 @@ for (k=0; k < 10; k++) {
   var rand_words = Math.floor(Math.random() * 10) + 1;
   //console.log("------- generating " + rand_words + " random words.")
   var rand_array = generate_words(rand_words);
-  console.log("The longest word in the array is " + compare_length(rand_array));
+  console.log("\nThe longest word in the above array is " + compare_length(rand_array)+"\n");
 
 }
 
