@@ -20,12 +20,13 @@ console.log(horseColors)
 
 console.log("----- Release 2 -----")
 function Car(type, yearMade, works) {
-this.type = type;
-this.yearMade = yearMade;
-this.works = works;
+  this.type = type;
+  this.yearMade = yearMade;
+  this.works = works;
 
-this.start_engine = function() { 
+  this.start_engine = function() { 
   if (this.works) {console.log("Vroom!"); }
+  
   else {console.log("Sputter...");}
   };
 };
