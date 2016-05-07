@@ -73,7 +73,7 @@ console.log(compare_length(words));
 var words = ["catcat","dog","house","this is the endadsf asdfd asdf ", "houses of the holy"];
 console.log(compare_length(words));
 
-
+console.log(" ------------------------------------------------------------- ");
 console.log("1. " + comp_obj({"name": "Steven", age: 99}, {"age": 99, name: "Steven"}));
 console.log("2. " + comp_obj({make: "Honda", year: 2015}, {lunch: "Mexican", dinner: "Italian"}));
 console.log("3. " + comp_obj({name: "Kirk", age: 40}, {age: 50, name: "Kirk"}));
@@ -81,12 +81,13 @@ console.log("4. " + comp_obj({gender: "Male", age:13}, {gender: "Female", age:12
 console.log("5. " + comp_obj({age:13, grade: 8}, {grade: 8, age:14}));
 console.log("6. " + comp_obj({city:"Chicago", cohort:"Nighthawks"}, {"city":"Chicago", cohort:"Golden Bears"}));
 
+console.log(" ------------------------------------------------------------- ");
 
 for (k=0; k < 10; k++) {
   var rand_words = Math.floor(Math.random() * 10) + 1;
   //console.log("------- generating " + rand_words + " random words.")
-  generate_words(rand_words);
-
+  var rand_array = generate_words(rand_words);
+  console.log("The longest word in the array is " + compare_length(rand_array));
 
 }
 
