@@ -1,3 +1,26 @@
+function generate_words(num_words){
+  var words_arry = [];
+    if (num_words > 0){
+      
+      for (i=0; i < num_words; i++){
+          var rlen = Math.floor(Math.random() * 10) + 1;
+          var hold_word = "";
+          var alphabet = "abcdefghijklmnopqrstuvwxyz";
+  
+          for (j=0; j < rlen; j++) {
+          var rchr = Math.floor(Math.random() * alphabet.length);
+            var letter = alphabet.charAt(rchr);
+            hold_word += letter;
+          }
+          words_arry.push(hold_word);
+      }
+    console.log(words_arry);
+    return words_arry;
+    }
+}
+
+
+
 function compare_length(expressions) {
   var hold_string = ""
   for (var i = 0; i < expressions.length; i++) {
@@ -57,6 +80,15 @@ console.log("3. " + comp_obj({name: "Kirk", age: 40}, {age: 50, name: "Kirk"}));
 console.log("4. " + comp_obj({gender: "Male", age:13}, {gender: "Female", age:12}));
 console.log("5. " + comp_obj({age:13, grade: 8}, {grade: 8, age:14}));
 console.log("6. " + comp_obj({city:"Chicago", cohort:"Nighthawks"}, {"city":"Chicago", cohort:"Golden Bears"}));
+
+
+for (k=0; k < 10; k++) {
+  var rand_words = Math.floor(Math.random() * 10) + 1;
+  //console.log("------- generating " + rand_words + " random words.")
+  generate_words(rand_words);
+
+
+}
 
 
 
