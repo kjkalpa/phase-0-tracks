@@ -14,7 +14,11 @@ function generate_words(num_words){
           }
           words_arry.push(hold_word);
       }
-    console.log(words_arry);
+    //console.log(words_arry);
+    for (i=0; i < words_arry.length; i++){
+      console.log(words_arry[i]);
+    }
+
     return words_arry;
     }
 }
@@ -57,19 +61,20 @@ function comp_obj(obj1, obj2){
   }
 }
 
-var words = ["catcatscadoodle my noodle","dog","house","this is the end", "houses of the holy"];
+var words = ["scadoodle my noodle","dog","house","this is the end", "home is where the heart is"];
 console.log(compare_length(words));
 
-var words = ["catcat","dog","house","this is the end", "houses of the holy"];
+var words = ["blast off","car","house","give it to me now", "houses of the holy"];
 console.log(compare_length(words));
 
-var words = ["catcat","dog","house","this is the end this iiiiiis the end ", "houses of the holy"];
+var words = ["what","dog days of summer","karma","little red corvette", "home on the range"];
 console.log(compare_length(words));
 
-var words = ["catcat","dog who let the dogs out ","house","this is the end", "houses of the holy"];
+var words = ["12345678","ababcab","i know it's over","get it over with already", "mary mary quite contrary"];
 console.log(compare_length(words));
 
-var words = ["catcat","dog","house","this is the endadsf asdfd asdf ", "houses of the holy"];
+var words = [
+"Oh mother, I can feel the soil falling over my head", "And as I climb into an empty bed", "Oh well, enough said", "I know it's over still I cling", "I don't know where else I can go, mother"];
 console.log(compare_length(words));
 
 console.log(" ------------------------------------------------------------- ");
