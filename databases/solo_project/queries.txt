@@ -65,3 +65,51 @@ id          item_num    description  fragile     whse_id
 4           102A        Glider       true        1
 6           104A        Block of Wo  false       2
 7           305B        Chair        false       2
+
+
+RELEASE 3
+==================================================================================================
+
+sqlite> select items.*, warehouse.* from items
+   ...> inner join warehouse on
+   ...> items.whse_id = warehouse.id;
+
+id          item_num    description  fragile     whse_id     id          name              location
+----------  ----------  -----------  ----------  ----------  ----------  ----------------  ----------
+1           100A        Bricks       false       2           2           Sturdy Warehouse  Illinois
+2           101A        Vase         true        1           1           Fragile Warehous  California
+3           101B        Picture Fra  true        1           1           Fragile Warehous  California
+4           102A        Glider       true        1           1           Fragile Warehous  California
+6           104A        Block of Wo  false       2           2           Sturdy Warehouse  Illinois
+7           305B        Chair        false       2           2           Sturdy Warehouse  Illinois
+
+==================================================================================================
+
+sqlite> select items.*, warehouse.* from items
+   ...> right join warehouse on items.whse_id = warehouse.id where items.whse_id IS NULL;
+
+Error: RIGHT and FULL OUTER JOINs are not currently supported
+
+==================================================================================================
+
+sqlite> INSERT INTO items(item_num, description, fragile, whse_id) VALUES
+   ...> ("403Z","New Book","false",4);
+
+sqlite> select items.*, warehouse.* from items
+   ...> LEFT JOIN warehouse ON
+   ...> items.whse_id = warehouse.id
+   ...> WHERE warehouse.id IS NULL;
+
+id          item_num    description  fragile     whse_id     id          name        location
+----------  ----------  -----------  ----------  ----------  ----------  ----------  ----------
+8           403Z        New Book     false       4
+
+
+
+
+
+
+
+
+
+
