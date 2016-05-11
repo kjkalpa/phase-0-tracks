@@ -1,0 +1,39 @@
+RELEASE 2, #2:
+
+sqlite> SELECT * FROM users
+   ...> join reviews on users.id = reviews.user_id
+   ...> join businesses on reviews.business_id = businesses.id;
+
+id          first_name  last_name   id          stars       comments           business_id  user_id     id          name
+----------  ----------  ----------  ----------  ----------  -----------------  -----------  ----------  ----------  ------------------
+1           Brad        Gilford     1           5           I love this place  1            1           1           The Wedding Chapel
+2           Mandy       Kailng      2           4           I got married her  1            2           1           The Wedding Chapel
+3           Angela      Wonder      3           3           He did his job     2            3           2           Amir's Towing
+2           Mandy       Kailng      4           1           It was dead on a   3            2           3           Beagle Nightclub
+1           Brad        Gilford     5           3           I liked the music  3            1           3           Beagle Nightclub
+
+
+RELEASE 2, #3:
+sqlite> select users.first_name, users.last_name, reviews.stars, reviews.comments, businesses.name from users
+   ...> join reviews on users.id = reviews.user_id
+   ...> join businesses on reviews.business_id = businesses.id;
+
+first_name  last_name   stars       comments           name
+----------  ----------  ----------  -----------------  ------------------
+Brad        Gilford     5           I love this place  The Wedding Chapel
+Mandy       Kailng      4           I got married her  The Wedding Chapel
+Angela      Wonder      3           He did his job     Amir's Towing
+Mandy       Kailng      1           It was dead on a   Beagle Nightclub
+Brad        Gilford     3           I liked the music  Beagle Nightclub
+
+RELEASE 2, #4:
+
+sqlite> select users.first_name, users.last_name, reviews.stars, reviews.comments, businesses.name from users
+   ...> join reviews on users.id = reviews.user_id
+   ...> join businesses on reviews.business_id = businesses.id
+   ...> where businesses.id = 1;
+   
+first_name  last_name   stars       comments           name
+----------  ----------  ----------  -----------------  ------------------
+Brad        Gilford     5           I love this place  The Wedding Chapel
+Mandy       Kailng      4           I got married her  The Wedding Chapel
