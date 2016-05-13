@@ -7,7 +7,8 @@ def main_heading
   puts r_indent + "1. Add Coins"
   puts r_indent + "2. Sell Coins"
   puts r_indent + "3. View Collection"
-  puts r_indent + "4. Quit"
+  puts r_indent + "4. View Transactions"
+  puts r_indent + "5. Quit"
 
 end
 
@@ -79,6 +80,15 @@ def create_tables(db)
     )
     SQL
 
+  db.execute(create_table_coins) 
+  db.execute(create_table_grades)
+  db.execute(create_table_collection)
+  db.execute(create_table_trans)
+
+end
+
+def insert_defaults(db)
+
   insert_default_coins = <<-SQL
     INSERT INTO coins VALUES 
     (null, "Pennies"), (null, "Nickels"), 
@@ -96,10 +106,6 @@ def create_tables(db)
     (null, "UNC", "Mint")
   SQL
 
-  db.execute(create_table_coins) 
-  db.execute(create_table_grades)
-  db.execute(create_table_collection)
-  db.execute(create_table_trans)
   db.execute(insert_default_coins)
   db.execute(insert_default_grades)
 
@@ -116,18 +122,17 @@ current = Date.today
 db = SQLite3::Database.new("coins.db")
 
 create_tables(db)
+insert_defaults(db)
 
+
+# ------------ future loop ---------------
 screen = 0
 
-while (screen < 1) || (screen > 3)
+while (screen < 1) || (screen > 5)
   main_heading
   print "Pick a screen > "
   screen = gets.chomp.to_i
 end
-
-
-# Prompt user for action
-# Accept response and go to corresponding screen
 
 # Add coins
 # Prompt user for corresponding db entries
@@ -181,13 +186,16 @@ if screen == 1
   prim_key = db.execute("SELECT last_insert_rowid()")
 
   db.execute("INSERT INTO coin_trans (tran_date, tran_type, price, coll_id) VALUES (?,?,?,?)", [current.to_s, "Add", response_add_price, prim_key])
-
-
 end
 
 if screen == 2
   sell_coin_heading
   # display_collection()
+  collection = db.execute("SELECT * FROM collection WHERE status = "A"")
+  for collection.each do |coin|
+    puts "#{coin['coin_id']} - #{coin['year']} - #{coin['condition']}"
+  end
+
 end
 
 if screen == 3
