@@ -134,3 +134,58 @@ end
 # Insert into collections
 # Insert into coin_trans
 
+coin_string = String.new
+valid_coins = []
+r_indent = " " * 26
+response_add_coin_type = 0
+
+if screen == 1 
+  add_coin_heading
+  coin_types = db.execute("SELECT * FROM coins")
+
+  coin_types.each do |coin|
+    valid_coins << coin[0]
+    puts r_indent + coin.join(".")
+  end
+
+  until valid_coins.include?(response_add_coin_type)
+    puts 
+    print "Enter the number of the coin you're adding to collection: "
+    response_add_coin_type = gets.chomp.to_i
+  end
+  
+  print "Enter the year of the coin (yyyy): "
+  response_add_year = gets.chomp.to_i  
+  print "Enter the condition of the coin: "
+  response_add_condition = gets.chomp
+  print "Enter the purchase price (0.00): "
+  response_add_price = gets.chomp.to_f   
+
+  puts response_add_price
+
+end
+
+if screen == 2
+  sell_coin_heading
+
+end
+
+if screen == 3
+  view_coin_heading
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
