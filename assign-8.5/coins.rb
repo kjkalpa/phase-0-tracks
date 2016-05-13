@@ -34,6 +34,13 @@ def view_coin_heading
 end
 
 def view_collection(db)
+  r_indent = " " * 26
+  collection = db.execute("SELECT * FROM collection c JOIN coins cn ON c.coin_id = cn.id JOIN grades g ON c.condition = g.id WHERE status = 'A'")
+
+  collection.each do |coin|
+    puts r_indent + "#{coin[0]}. #{coin[8]} - #{coin[2]} - #{coin[11]}"
+  end
+  puts ""
 
 end
 
@@ -191,13 +198,13 @@ end
 if screen == 2
   sell_coin_heading
   puts
-  # display_collection()
+  view_collection(db)
 
-  collection = db.execute("SELECT * FROM collection c JOIN coins cn ON c.coin_id = cn.id JOIN grades g ON c.condition = g.id")
-
-  collection.each do |coin|
-    puts r_indent + "#{coin[0]}. #{coin[8]} - #{coin[2]} - #{coin[11]}"
-  end
+  print "Which Coin would you like to sell? "
+  response_sell_coin = gets.chomp.to_i
+  puts response_sell_coin
+  db.execute("UPDATE collection SET status = 'S' WHERE id = ?",[response_sell_coin])
+  view_collection(db)
 
 end
 
