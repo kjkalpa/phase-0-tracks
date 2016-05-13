@@ -35,13 +35,17 @@ end
 
 def view_collection(db)
   temp_array = Array.new
+  dollar_amt = 0.0
 
   r_indent = " " * 26
   collection = db.execute("SELECT * FROM collection c JOIN coins cn ON c.coin_id = cn.id JOIN grades g ON c.condition = g.id WHERE status = 'A'")
 
   collection.each do |coin|
     temp_array << coin[0]
-    puts r_indent + "#{coin[0]}. #{coin[8]} - #{coin[2]} - #{coin[11]} - $#{coin[4]}"
+    p_cent = coin[4] % 100
+    p_doll = coin[4] / 100
+    dollar_amt = "%5.2f" % (p_doll.to_s + "." + p_cent.to_s)
+    puts r_indent + "#{coin[0]}. #{coin[8]} - #{coin[2]} - #{coin[11]} - $#{dollar_amt}"
   end
   puts ""
   return temp_array
@@ -71,8 +75,8 @@ def create_tables(db)
       coin_id INT,
       year INT,
       condition INT,
-      purchase_price REAL,
-      sale_price REAL,
+      purchase_price INT,
+      sale_price INT,
       status VARCHAR(2),
       FOREIGN KEY (coin_id) REFERENCES coins(id),
       FOREIGN KEY (condition) REFERENCES grades(id)
@@ -84,7 +88,7 @@ def create_tables(db)
       id INTEGER PRIMARY KEY,
       tran_date TEXT,
       tran_type VARCHAR(10),
-      price REAL,
+      price INT,
       coll_id INT,
       FOREIGN KEY (coll_id) REFERENCES collection(id)
     )
@@ -159,6 +163,8 @@ loop do
   response_add_coin_type = 0
   response_add_condition = 0
 
+
+# Begin ADD to collection -----------
   if screen == 1 
     add_coin_heading
     coin_types = db.execute("SELECT * FROM coins")
@@ -191,7 +197,9 @@ loop do
     end 
 
     print "Enter the purchase price (0.00): "
-    response_add_price = gets.chomp 
+    response_add_price = (gets.chomp.to_f * 100).to_i
+    puts response_add_price
+    x=gets.chomp
 
     db.execute("INSERT INTO collection (coin_id, year, condition, purchase_price, sale_price, status) VALUES (?,?,?,?,?,?)", [response_add_coin_type, response_add_year, response_add_condition, response_add_price, 0, "A"])
 
@@ -199,6 +207,8 @@ loop do
 
     db.execute("INSERT INTO coin_trans (tran_date, tran_type, price, coll_id) VALUES (?,?,?,?)", [current.to_s, "Add", response_add_price, prim_key])
   end
+# End ADD to collection -------------------
+
 
   if screen == 2
     sell_coin_heading
