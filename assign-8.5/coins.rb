@@ -34,14 +34,17 @@ def view_coin_heading
 end
 
 def view_collection(db)
+  temp_array = Array.new
+
   r_indent = " " * 26
   collection = db.execute("SELECT * FROM collection c JOIN coins cn ON c.coin_id = cn.id JOIN grades g ON c.condition = g.id WHERE status = 'A'")
 
   collection.each do |coin|
-    puts r_indent + "#{coin[0]}. #{coin[8]} - #{coin[2]} - #{coin[11]}"
+    temp_array << coin[0]
+    puts r_indent + "#{coin[0]}. #{coin[8]} - #{coin[2]} - #{coin[11]} - $#{coin[4]}"
   end
   puts ""
-
+  return temp_array
 end
 
 def create_tables(db)
@@ -133,86 +136,98 @@ insert_defaults(db)
 
 
 # ------------ future loop ---------------
-screen = 0
+loop do
 
-while (screen < 1) || (screen > 5)
-  main_heading
-  print "Pick a screen > "
-  screen = gets.chomp.to_i
-end
+  screen = 0
 
-# Add coins
-# Prompt user for corresponding db entries
-# Validate answers
-# Insert into collections
-# Insert into coin_trans
-
-coin_string = String.new
-valid_coins = []
-valid_grades = []
-r_indent = " " * 26
-response_add_coin_type = 0
-response_add_condition = 0
-
-if screen == 1 
-  add_coin_heading
-  coin_types = db.execute("SELECT * FROM coins")
-
-  coin_types.each do |coin|
-    valid_coins << coin[0]
-    puts r_indent + coin.join(".")
+  while (screen < 1) || (screen > 5)
+    main_heading
+    print "Pick a screen > "
+    screen = gets.chomp.to_i
   end
 
-  until valid_coins.include?(response_add_coin_type)
-    puts 
-    print "Enter the number of the coin type you're adding to collection: "
-    response_add_coin_type = gets.chomp.to_i
-  end
-  
-  print "Enter the year of the coin (yyyy): "
-  response_add_year = gets.chomp.to_i  
+  # Add coins
+  # Prompt user for corresponding db entries
+  # Validate answers
+  # Insert into collections
+  # Insert into coin_trans
 
-  grade_types = db.execute("SELECT * FROM grades")
-  grade_types.each do |grade|
-    valid_grades << grade[0]
-    # puts r_indent + grade[0] + "." + grade[2]
-    puts r_indent + grade[0].to_s + "." + grade[2].to_s
+  coin_string = String.new
+  valid_coins = []
+  valid_grades = []
+  r_indent = " " * 26
+  response_add_coin_type = 0
+  response_add_condition = 0
+
+  if screen == 1 
+    add_coin_heading
+    coin_types = db.execute("SELECT * FROM coins")
+
+    coin_types.each do |coin|
+      valid_coins << coin[0]
+      puts r_indent + coin.join(".")
+    end
+
+    until valid_coins.include?(response_add_coin_type)
+      puts 
+      print "Enter the number of the coin type you're adding to collection: "
+      response_add_coin_type = gets.chomp.to_i
+    end
+    
+    print "Enter the year of the coin (yyyy): "
+    response_add_year = gets.chomp.to_i  
+
+    grade_types = db.execute("SELECT * FROM grades")
+    grade_types.each do |grade|
+      valid_grades << grade[0]
+      # puts r_indent + grade[0] + "." + grade[2]
+      puts r_indent + grade[0].to_s + "." + grade[2].to_s
+    end
+
+    until valid_grades.include?(response_add_condition)
+      puts
+      print "Enter the number of the condition of the coin: "
+      response_add_condition = gets.chomp.to_i
+    end 
+
+    print "Enter the purchase price (0.00): "
+    response_add_price = gets.chomp 
+
+    db.execute("INSERT INTO collection (coin_id, year, condition, purchase_price, sale_price, status) VALUES (?,?,?,?,?,?)", [response_add_coin_type, response_add_year, response_add_condition, response_add_price, 0, "A"])
+
+    prim_key = db.execute("SELECT last_insert_rowid()")
+
+    db.execute("INSERT INTO coin_trans (tran_date, tran_type, price, coll_id) VALUES (?,?,?,?)", [current.to_s, "Add", response_add_price, prim_key])
   end
 
-  until valid_grades.include?(response_add_condition)
+  if screen == 2
+    sell_coin_heading
     puts
-    print "Enter the number of the condition of the coin: "
-    response_add_condition = gets.chomp.to_i
-  end 
+    valid_coins = view_collection(db)
 
-  print "Enter the purchase price (0.00): "
-  response_add_price = gets.chomp 
+    print "Which Coin would you like to sell? "
+    response_sell_coin = gets.chomp.to_i
 
-  db.execute("INSERT INTO collection (coin_id, year, condition, purchase_price, sale_price, status) VALUES (?,?,?,?,?,?)", [response_add_coin_type, response_add_year, response_add_condition, response_add_price, 0, "A"])
+    if valid_coins.include?(response_sell_coin)
+      print "Sale price? "
+      response_sell_price = gets.chomp.to_f
+      db.execute("UPDATE collection SET status = 'S' WHERE id = ?",[response_sell_coin])
 
-  prim_key = db.execute("SELECT last_insert_rowid()")
+      db.execute("INSERT INTO coin_trans (tran_date, tran_type, price, coll_id) VALUES (?,?,?,?)", [current.to_s, "Sell", response_sell_price, response_sell_coin])
 
-  db.execute("INSERT INTO coin_trans (tran_date, tran_type, price, coll_id) VALUES (?,?,?,?)", [current.to_s, "Add", response_add_price, prim_key])
+    end
+     
+  end
+
+  if screen == 3
+    view_coin_heading
+  end
+
+  if screen == 5
+    break
+  end
+
 end
-
-if screen == 2
-  sell_coin_heading
-  puts
-  view_collection(db)
-
-  print "Which Coin would you like to sell? "
-  response_sell_coin = gets.chomp.to_i
-  puts response_sell_coin
-  db.execute("UPDATE collection SET status = 'S' WHERE id = ?",[response_sell_coin])
-  view_collection(db)
-
-end
-
-if screen == 3
-  view_coin_heading
-end
-
-
 
 
 
