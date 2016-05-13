@@ -35,73 +35,7 @@ def view_collection(db)
 
 end
 
-def create_tables(db)
-  create_table_coins = <<-SQL
-    CREATE TABLE IF NOT EXISTS coins(
-      id INTEGER PRIMARY KEY,
-      description VARCHAR(255)
-      UNIQUE ON CONFLICT IGNORE
-    )
-    SQL
 
-  create_table_grades = <<-SQL
-    CREATE TABLE IF NOT EXISTS grades(
-      id INTEGER PRIMARY KEY,
-      grade VARCHAR(5),
-      description VARCHAR(25)
-      UNIQUE ON CONFLICT IGNORE
-    )
-    SQL
-
-  create_table_collection = <<-SQL
-    CREATE TABLE IF NOT EXISTS collection(
-      id INTEGER PRIMARY KEY,
-      coin_id INT,
-      year INT,
-      condition INT,
-      purchase_price REAL,
-      sale_price REAL,
-      status VARCHAR(2),
-      FOREIGN KEY (coin_id) REFERENCES coins(id),
-      FOREIGN KEY (condition) REFERENCES grades(id)
-    )
-    SQL
-
-  create_table_trans = <<-SQL
-    CREATE TABLE IF NOT EXISTS coin_trans(
-      id INTEGER PRIMARY KEY,
-      tran_date TEXT,
-      tran_type VARCHAR(2),
-      sale_price REAL,
-      coll_id INT,
-      FOREIGN KEY (coll_id) REFERENCES collection(id)
-    )
-    SQL
-
-  insert_default_coins = <<-SQL
-    INSERT INTO coins VALUES 
-    (null, "Pennies"), (null, "Nickels"), 
-    (null, "Dimes"), (null, "Quarters"), 
-    (null, "Half Dollars"), (null, "Dollars")
-  SQL
-
-  insert_default_grading = <<-SQL
-    INSERT INTO coins VALUES 
-    (null, "G", "Good"), 
-    (null, "VG", "Very Good"), 
-    (null, "F", "Fine"), 
-    (null, "VF", "Very Fine"), 
-    (null, "EF", "Extra Fine"), 
-    (null, "UNC", "Mint")
-  SQL
-
-  db.execute(create_table_coins) 
-  db.execute(create_table_grades)
-  db.execute(create_table_collection)
-  db.execute(create_table_trans)
-  db.execute(insert_default_coins)
-
-end
 
 ########## DRIVER CODE ##########
 
@@ -113,7 +47,7 @@ current = Date.today
 # create SQLite3 database
 db = SQLite3::Database.new("coins.db")
 
-create_tables(db)
+
 
 screen = 0
 
@@ -133,59 +67,4 @@ end
 # Validate answers
 # Insert into collections
 # Insert into coin_trans
-
-coin_string = String.new
-valid_coins = []
-r_indent = " " * 26
-response_add_coin_type = 0
-
-if screen == 1 
-  add_coin_heading
-  coin_types = db.execute("SELECT * FROM coins")
-
-  coin_types.each do |coin|
-    valid_coins << coin[0]
-    puts r_indent + coin.join(".")
-  end
-
-  until valid_coins.include?(response_add_coin_type)
-    puts 
-    print "Enter the number of the coin you're adding to collection: "
-    response_add_coin_type = gets.chomp.to_i
-  end
-  
-  print "Enter the year of the coin (yyyy): "
-  response_add_year = gets.chomp.to_i  
-  print "Enter the condition of the coin: "
-  response_add_condition = gets.chomp
-  print "Enter the purchase price (0.00): "
-  response_add_price = gets.chomp.to_f   
-
-  puts response_add_price
-
-end
-
-if screen == 2
-  sell_coin_heading
-
-end
-
-if screen == 3
-  view_coin_heading
-end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
