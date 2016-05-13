@@ -7,6 +7,7 @@ def main_heading
   puts r_indent + "1. Add Coins"
   puts r_indent + "2. Sell Coins"
   puts r_indent + "3. View Collection"
+  puts r_indent + "4. Quit"
 
 end
 
@@ -71,8 +72,8 @@ def create_tables(db)
     CREATE TABLE IF NOT EXISTS coin_trans(
       id INTEGER PRIMARY KEY,
       tran_date TEXT,
-      tran_type VARCHAR(2),
-      sale_price REAL,
+      tran_type VARCHAR(10),
+      price REAL,
       coll_id INT,
       FOREIGN KEY (coll_id) REFERENCES collection(id)
     )
@@ -85,8 +86,8 @@ def create_tables(db)
     (null, "Half Dollars"), (null, "Dollars")
   SQL
 
-  insert_default_grading = <<-SQL
-    INSERT INTO coins VALUES 
+  insert_default_grades = <<-SQL
+    INSERT INTO grades VALUES 
     (null, "G", "Good"), 
     (null, "VG", "Very Good"), 
     (null, "F", "Fine"), 
@@ -100,6 +101,7 @@ def create_tables(db)
   db.execute(create_table_collection)
   db.execute(create_table_trans)
   db.execute(insert_default_coins)
+  db.execute(insert_default_grades)
 
 end
 
@@ -119,7 +121,6 @@ screen = 0
 
 while (screen < 1) || (screen > 3)
   main_heading
-  puts current
   print "Pick a screen > "
   screen = gets.chomp.to_i
 end
@@ -136,8 +137,10 @@ end
 
 coin_string = String.new
 valid_coins = []
+valid_grades = []
 r_indent = " " * 26
 response_add_coin_type = 0
+response_add_condition = 0
 
 if screen == 1 
   add_coin_heading
@@ -150,24 +153,39 @@ if screen == 1
 
   until valid_coins.include?(response_add_coin_type)
     puts 
-    print "Enter the number of the coin you're adding to collection: "
+    print "Enter the number of the coin type you're adding to collection: "
     response_add_coin_type = gets.chomp.to_i
   end
   
   print "Enter the year of the coin (yyyy): "
   response_add_year = gets.chomp.to_i  
-  print "Enter the condition of the coin: "
-  response_add_condition = gets.chomp
-  print "Enter the purchase price (0.00): "
-  response_add_price = gets.chomp.to_f   
 
-  puts response_add_price
+  grade_types = db.execute("SELECT * FROM grades")
+  grade_types.each do |grade|
+    valid_grades << grade[0]
+    # puts r_indent + grade[0] + "." + grade[2]
+    puts r_indent + grade[0].to_s + "." + grade[2].to_s
+  end
+
+  until valid_grades.include?(response_add_condition)
+    puts
+    print "Enter the number of the condition of the coin: "
+    response_add_condition = gets.chomp.to_i
+  end 
+
+  print "Enter the purchase price (0.00): "
+  response_add_price = gets.chomp 
+
+  db.execute("INSERT INTO collection (coin_id, year, condition, purchase_price, sale_price, status) VALUES (?,?,?,?,?,?)", [response_add_coin_type, response_add_year, response_add_condition, response_add_price, 0, "A"])
+
+
+
 
 end
 
 if screen == 2
   sell_coin_heading
-
+  # display_collection()
 end
 
 if screen == 3
