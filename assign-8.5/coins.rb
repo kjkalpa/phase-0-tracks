@@ -31,6 +31,25 @@ def view_coin_heading
   r_indent = " " * 26
   puts 
   puts r_indent + "View Coin Collection"
+  puts 
+end
+
+def view_coin_trans
+  Gem.win_platform? ? (system "cls") : (system "clear")
+  r_indent = " " * 26
+  puts 
+  puts r_indent + "View Coin Transactions"
+  puts 
+  puts "     Tran Type      ID#  Coin              Date          Sale $     Paid $"
+  puts "     ---------------------------------------------------------------------"
+
+end
+
+def convert_to_dollar(amt)
+    p_cent = amt.to_i % 100
+    p_doll = amt.to_i / 100
+    p_dol_cent = "%5.2f" % (p_doll.to_s + "." + p_cent.to_s)
+    return p_dol_cent
 end
 
 def view_collection(db)
@@ -42,13 +61,33 @@ def view_collection(db)
 
   collection.each do |coin|
     temp_array << coin[0]
-    p_cent = coin[4] % 100
-    p_doll = coin[4] / 100
-    dollar_amt = "%5.2f" % (p_doll.to_s + "." + p_cent.to_s)
+    dollar_amt = convert_to_dollar(coin[4])
+
     puts r_indent + "#{coin[0]}. #{coin[8]} - #{coin[2]} - #{coin[11]} - $#{dollar_amt}"
   end
   puts ""
   return temp_array
+end
+
+def view_transactions(db)
+  transactions = db.execute("SELECT ct.tran_date, ct.tran_type, ct.price, cl.year, cl.purchase_price, cl.sale_price, cl.id, cs.description, cs.id FROM coin_trans ct JOIN collection cl ON ct.coll_id = cl.id JOIN coins cs ON cl.coin_id = cs.id")
+
+  transactions.each do |recs|
+    tran_coin = '%-15.15s' % recs[7]
+    tran_date = recs[0]
+    tran_coin_id = '%-4.4s' % recs[6]
+    tran_typ  = '%-9.4s' % recs[1]
+    if recs[1] == 'Add' 
+      tran_sold_for = '%10.10s' % convert_to_dollar(0)
+    else
+      tran_sold_for = '%10.10s' % convert_to_dollar(recs[2])
+    end
+    tran_paid = '%10.10s' % convert_to_dollar(recs[4])
+
+    puts "     #{tran_typ}      #{tran_coin_id} #{tran_coin} #{tran_date}  #{tran_sold_for} #{tran_paid}"
+  end
+  puts
+
 end
 
 def create_tables(db)
@@ -101,6 +140,7 @@ def create_tables(db)
 
 end
 
+
 def insert_defaults(db)
 
   insert_default_coins = <<-SQL
@@ -131,7 +171,6 @@ require 'sqlite3'
 require 'date'
 current = Date.today
 
-
 # create SQLite3 database
 db = SQLite3::Database.new("coins.db")
 
@@ -139,7 +178,6 @@ create_tables(db)
 insert_defaults(db)
 
 
-# ------------ future loop ---------------
 loop do
 
   screen = 0
@@ -182,6 +220,7 @@ loop do
     
     print "Enter the year of the coin (yyyy): "
     response_add_year = gets.chomp.to_i  
+    puts
 
     grade_types = db.execute("SELECT * FROM grades")
     grade_types.each do |grade|
@@ -198,39 +237,65 @@ loop do
 
     print "Enter the purchase price (0.00): "
     response_add_price = (gets.chomp.to_f * 100).to_i
-    puts response_add_price
-    x=gets.chomp
 
-    db.execute("INSERT INTO collection (coin_id, year, condition, purchase_price, sale_price, status) VALUES (?,?,?,?,?,?)", [response_add_coin_type, response_add_year, response_add_condition, response_add_price, 0, "A"])
+    print "Do you want to add this to your collection (y/n)? "
+    response_confirm_add = gets.chomp == 'y'
 
-    prim_key = db.execute("SELECT last_insert_rowid()")
+    if response_confirm_add
+        db.execute("INSERT INTO collection (coin_id, year, condition, purchase_price, sale_price, status) VALUES (?,?,?,?,?,?)", [response_add_coin_type, response_add_year, response_add_condition, response_add_price, 0, "A"])
 
-    db.execute("INSERT INTO coin_trans (tran_date, tran_type, price, coll_id) VALUES (?,?,?,?)", [current.to_s, "Add", response_add_price, prim_key])
+        prim_key = db.execute("SELECT last_insert_rowid()")
+
+        db.execute("INSERT INTO coin_trans (tran_date, tran_type, price, coll_id) VALUES (?,?,?,?)", [current.to_s, "Add", response_add_price, prim_key])
+    end
   end
 # End ADD to collection -------------------
 
-
+# SELL Coins
+# Display collection
+# Select coin to sell
+# Enter price of coin
+# Set status in collection to "S"old
+# Update transaction table with results
+# Begin SELL from collection --------------
   if screen == 2
+
     sell_coin_heading
     puts
     valid_coins = view_collection(db)
 
-    print "Which Coin would you like to sell? "
+    print "Which Coin would you like to sell, press <enter> to exit? "
     response_sell_coin = gets.chomp.to_i
 
     if valid_coins.include?(response_sell_coin)
       print "Sale price? "
-      response_sell_price = gets.chomp.to_f
+      response_sell_price = (gets.chomp.to_f * 100).to_i
+
       db.execute("UPDATE collection SET status = 'S' WHERE id = ?",[response_sell_coin])
 
-      db.execute("INSERT INTO coin_trans (tran_date, tran_type, price, coll_id) VALUES (?,?,?,?)", [current.to_s, "Sell", response_sell_price, response_sell_coin])
+      db.execute("INSERT INTO coin_trans (tran_date, tran_type, price, coll_id) VALUES (?,?,?,?)", [current.to_s, "Sold", response_sell_price, response_sell_coin])
 
     end
-     
   end
 
+# Begin VIEW from collection ---------------
   if screen == 3
+
     view_coin_heading
+    view_collection(db)
+    print "Press <enter> to continue > "
+    x=gets.chomp
+
+  end
+
+# Begin VIEW from transactions -------------
+  if screen == 4
+
+    view_coin_trans
+    view_transactions(db)
+    print "Press <enter> to continue > "
+    x=gets.chomp
+
   end
 
   if screen == 5
