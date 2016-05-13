@@ -91,9 +91,9 @@ def insert_defaults(db)
 
   insert_default_coins = <<-SQL
     INSERT INTO coins VALUES 
-    (null, "Pennies"), (null, "Nickels"), 
-    (null, "Dimes"), (null, "Quarters"), 
-    (null, "Half Dollars"), (null, "Dollars")
+    (null, "Penny"), (null, "Nickel"), 
+    (null, "Dime"), (null, "Quarter"), 
+    (null, "Half Dollar"), (null, "Silver Dollar")
   SQL
 
   insert_default_grades = <<-SQL
@@ -190,10 +190,13 @@ end
 
 if screen == 2
   sell_coin_heading
+  puts
   # display_collection()
-  collection = db.execute("SELECT * FROM collection WHERE status = "A"")
-  for collection.each do |coin|
-    puts "#{coin['coin_id']} - #{coin['year']} - #{coin['condition']}"
+
+  collection = db.execute("SELECT * FROM collection c JOIN coins cn ON c.coin_id = cn.id JOIN grades g ON c.condition = g.id")
+
+  collection.each do |coin|
+    puts r_indent + "#{coin[0]}. #{coin[8]} - #{coin[2]} - #{coin[11]}"
   end
 
 end
