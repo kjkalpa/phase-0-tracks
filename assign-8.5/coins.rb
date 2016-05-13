@@ -29,9 +29,12 @@ end
 def view_coin_heading
   Gem.win_platform? ? (system "cls") : (system "clear")
   r_indent = " " * 26
+  r_indent2 = " " * 12
   puts 
   puts r_indent + "View Coin Collection"
   puts 
+  puts r_indent2 + "ID   Coin             Year  Grade          Paid"
+  puts r_indent2 + "--------------------------------------------------"
 end
 
 def view_coin_trans
@@ -56,24 +59,32 @@ def view_collection(db)
   temp_array = Array.new
   dollar_amt = 0.0
 
-  r_indent = " " * 26
+  r_indent = " " * 12
   collection = db.execute("SELECT * FROM collection c JOIN coins cn ON c.coin_id = cn.id JOIN grades g ON c.condition = g.id WHERE status = 'A'")
 
   collection.each do |coin|
     temp_array << coin[0]
+    tran_id = '%-4.4s' % coin[0]
     dollar_amt = convert_to_dollar(coin[4])
+    tran_coin = format_coin_type(coin[8])
+    tran_grade = '%-11.10s' % coin[11]
 
-    puts r_indent + "#{coin[0]}. #{coin[8]} - #{coin[2]} - #{coin[11]} - $#{dollar_amt}"
+    puts r_indent + "#{tran_id} #{tran_coin}  #{coin[2]}  #{tran_grade}   $#{dollar_amt}"
   end
   puts ""
   return temp_array
+end
+
+def format_coin_type(coin)
+    str_coin = '%-15.15s' % coin
+    return str_coin
 end
 
 def view_transactions(db)
   transactions = db.execute("SELECT ct.tran_date, ct.tran_type, ct.price, cl.year, cl.purchase_price, cl.sale_price, cl.id, cs.description, cs.id FROM coin_trans ct JOIN collection cl ON ct.coll_id = cl.id JOIN coins cs ON cl.coin_id = cs.id")
 
   transactions.each do |recs|
-    tran_coin = '%-15.15s' % recs[7]
+    tran_coin = format_coin_type(recs[7])
     tran_date = recs[0]
     tran_coin_id = '%-4.4s' % recs[6]
     tran_typ  = '%-9.4s' % recs[1]
@@ -166,6 +177,17 @@ def insert_defaults(db)
 end
 
 ########## DRIVER CODE ##########
+# Add coins ----------
+  # Prompt user for corresponding db entries
+  # Validate answers
+  # Insert into collections
+  # Insert into coin_trans
+# SELL Coins ----------
+  # Display collection
+  # Select coin to sell
+  # Enter price of coin
+  # Set status in collection to "S"old
+  # Update transaction table with results
 
 require 'sqlite3'
 require 'date'
@@ -188,11 +210,6 @@ loop do
     screen = gets.chomp.to_i
   end
 
-  # Add coins
-  # Prompt user for corresponding db entries
-  # Validate answers
-  # Insert into collections
-  # Insert into coin_trans
 
   coin_string = String.new
   valid_coins = []
@@ -251,12 +268,6 @@ loop do
   end
 # End ADD to collection -------------------
 
-# SELL Coins
-# Display collection
-# Select coin to sell
-# Enter price of coin
-# Set status in collection to "S"old
-# Update transaction table with results
 # Begin SELL from collection --------------
   if screen == 2
 
