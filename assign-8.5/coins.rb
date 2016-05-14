@@ -8,7 +8,8 @@ def main_heading
   puts r_indent + "2. Sell Coins"
   puts r_indent + "3. View Collection"
   puts r_indent + "4. View Transactions"
-  puts r_indent + "5. Quit"
+  puts r_indent + "5. Update Collection"
+  puts r_indent + "6. Quit"
 
 end
 
@@ -177,6 +178,28 @@ def insert_defaults(db)
 
 end
 
+def display_grades(db, valid_grades, r_indent)
+  grade_types = db.execute("SELECT * FROM grades")
+  grade_types.each do |grade|
+    valid_grades << grade[0]
+    puts r_indent + grade[0].to_s + "." + grade[2].to_s
+  end
+end
+
+def display_coins(db, valid_coins, r_indent)
+  coin_types = db.execute("SELECT * FROM coins")
+  coin_types.each do |coin|
+    valid_coins << coin[0]
+    puts r_indent + coin.join(".")
+  end
+end
+
+def modify_collection(db, id)
+  print "Do you want to modify the (y)ear, (g)rade or (p)rice paid for the coin? "
+  response_modify = gets.chomp.downcase
+
+end
+
 ########## DRIVER CODE ##########
 # Add coins ----------
   # Prompt user for corresponding db entries
@@ -223,12 +246,8 @@ loop do
 # Begin ADD to collection -----------
   if screen == 1 
     add_coin_heading
-    coin_types = db.execute("SELECT * FROM coins")
 
-    coin_types.each do |coin|
-      valid_coins << coin[0]
-      puts r_indent + coin.join(".")
-    end
+    display_coins(db, valid_coins, r_indent)
 
     until valid_coins.include?(response_add_coin_type)
       puts 
@@ -240,12 +259,7 @@ loop do
     response_add_year = gets.chomp.to_i  
     puts
 
-    grade_types = db.execute("SELECT * FROM grades")
-    grade_types.each do |grade|
-      valid_grades << grade[0]
-      # puts r_indent + grade[0] + "." + grade[2]
-      puts r_indent + grade[0].to_s + "." + grade[2].to_s
-    end
+    display_grades(db, valid_grades, r_indent)
 
     until valid_grades.include?(response_add_condition)
       puts
@@ -257,7 +271,7 @@ loop do
     response_add_price = (gets.chomp.to_f * 100).to_i
 
     print "Do you want to add this to your collection (y/n)? "
-    response_confirm_add = gets.chomp == 'y'
+    response_confirm_add = gets.chomp.downcase == 'y'
 
     if response_confirm_add
         db.execute("INSERT INTO collection (coin_id, year, condition, purchase_price, sale_price, status) VALUES (?,?,?,?,?,?)", [response_add_coin_type, response_add_year, response_add_condition, response_add_price, 0, "A"])
@@ -296,7 +310,7 @@ loop do
     view_coin_heading
     view_collection(db)
     print "Press <enter> to continue > "
-    x=gets.chomp
+    x = gets.chomp
 
   end
 
@@ -311,6 +325,28 @@ loop do
   end
 
   if screen == 5
+    view_coin_heading
+    valid_coins = view_collection(db)
+    print "Enter the id number of coin to update or press <enter> to return to menu > "
+    coin_selected = gets.chomp.to_i
+    if valid_coins.include?(coin_selected)
+      print "Do you want to (m)odify or (d)elete the coin? "
+      response_m_or_d = gets.chomp
+      if response_m_or_d.downcase == "m"
+        modify_collection(db, coin_selected)
+        puts "Modify"
+        x=gets.chomp
+      elsif response_m_or_d.downcase == "d"
+        print "Do you want to delete this to your collection (y/n)? "
+        response_confirm_delete = gets.chomp.downcase == 'y'
+      end
+    else
+      print "You entered an invalid number.  Press <enter> to continue."
+      x=gets.chomp
+    end
+  end
+
+  if screen == 6
     break
   end
 
