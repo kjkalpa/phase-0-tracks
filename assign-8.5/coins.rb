@@ -101,6 +101,11 @@ def view_transactions(db)
 
 end
 
+
+def create_tbl_coins(db)
+
+end
+
 def create_tables(db)
   create_table_coins = <<-SQL
     CREATE TABLE IF NOT EXISTS coins(
