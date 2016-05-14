@@ -102,10 +102,6 @@ def view_transactions(db)
 end
 
 
-def create_tbl_coins(db)
-
-end
-
 def create_tables(db)
   create_table_coins = <<-SQL
     CREATE TABLE IF NOT EXISTS coins(
@@ -209,7 +205,7 @@ loop do
 
   screen = 0
 
-  while (screen < 1) || (screen > 5)
+  while (screen < 1) || (screen > 6)
     main_heading
     print "Pick a screen > "
     screen = gets.chomp.to_i
