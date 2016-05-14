@@ -195,8 +195,6 @@ def display_coins(db, valid_coins, r_indent)
 end
 
 def delete_from_collection(db, id, current)
-  p current.to_s
-  p id
   del_price = 0
   
   db.execute("INSERT INTO coin_trans (tran_date, tran_type, price, coll_id) VALUES (?,?,?,?)", [current.to_s, 'Del', del_price.to_i, id])
@@ -211,43 +209,48 @@ def modify_collection(db, id)
 
   case response_modify
     when 'y'
-      print "What is the new year (yyyy)? "
-      response_update_year = gets.chomp.to_i 
-      db.execute("UPDATE collection SET year = (?) WHERE id = (?)",[response_update_year, id])
+      modify_collection_year(db, id)
 
     when 'g'
-        valid_grades = []
-        r_indent = " " * 26
-        response_update_condition = 0
-
-        display_grades(db, valid_grades, r_indent)
-
-        until valid_grades.include?(response_update_condition)
-          puts
-          print "Enter the number of the condition of the coin: "
-          response_update_condition = gets.chomp.to_i
-        end 
-
-        db.execute("UPDATE collection SET condition = (?) WHERE id = (?) ",[response_update_condition, id])
+      modify_collection_grade(db, id)
 
     when 'p'
-        print "Enter the purchase price (0.00): "
-        response_update_price = (gets.chomp.to_f * 100).to_i
-
-        db.execute("UPDATE collection SET sale_price = (?) WHERE id = (?)",[response_update_price, id])
+      modify_collection_price(db, id)
 
     else
         print "Invalid entry "
-        x=get.chomp
+        get.chomp
   end
 
 end
 
 def modify_collection_year(db, id)
+    print "What is the new year (yyyy)? "
+    response_update_year = gets.chomp.to_i 
+    db.execute("UPDATE collection SET year = (?) WHERE id = (?)",[response_update_year, id])
 end
+
 def modify_collection_grade(db, id)
+    valid_grades = []
+    r_indent = " " * 26
+    response_update_condition = 0
+
+    display_grades(db, valid_grades, r_indent)
+
+    until valid_grades.include?(response_update_condition)
+      puts
+      print "Enter the number of the condition of the coin: "
+      response_update_condition = gets.chomp.to_i
+    end 
+
+    db.execute("UPDATE collection SET condition = (?) WHERE id = (?) ",[response_update_condition, id])
 end
+
 def modify_collection_price(db, id)
+    print "Enter the purchase price (0.00): "
+    response_update_price = (gets.chomp.to_f * 100).to_i
+
+    db.execute("UPDATE collection SET purchase_price = (?) WHERE id = (?) ",[response_update_price, id])
 end
 
 ########## DRIVER CODE ##########
@@ -335,7 +338,6 @@ loop do
 
 # Begin SELL from collection --------------
   if screen == 2
-
     sell_coin_heading
     puts
     valid_coins = view_collection(db)
@@ -356,7 +358,6 @@ loop do
 
 # Begin VIEW from collection ---------------
   if screen == 3
-
     view_coin_heading
     view_collection(db)
     print "Press <enter> to continue > "
@@ -366,39 +367,40 @@ loop do
 
 # Begin VIEW from transactions -------------
   if screen == 4
-
     view_coin_trans
     view_transactions(db)
     print "Press <enter> to continue > "
-    x=gets.chomp
+    gets.chomp
 
   end
 
   if screen == 5
-    view_coin_heading
-    valid_coins = view_collection(db)
-    print "Enter the id number of coin to update or press <enter> to return to menu > "
-    coin_selected = gets.chomp.to_i
+    loop do
+      view_coin_heading
+      valid_coins = view_collection(db)
+      print "Enter the id number of coin to update or press <enter> to return to menu > "
+      coin_selected = gets.chomp.to_i
 
-    if valid_coins.include?(coin_selected)
-        print "Do you want to (m)odify or (d)elete the coin? "
-        response_m_or_d = gets.chomp
+      if valid_coins.include?(coin_selected)
+          print "Do you want to (m)odify or (d)elete the coin? "
+          response_m_or_d = gets.chomp
 
-        if response_m_or_d.downcase == "m"
-            modify_collection(db, coin_selected)
-        elsif response_m_or_d.downcase == "d"
-            print "Do you want to delete this to your collection (y/n)? "
-            response_confirm_delete = gets.chomp.downcase == 'y'
+          if response_m_or_d.downcase == "m"
+              modify_collection(db, coin_selected)
+          elsif response_m_or_d.downcase == "d"
+              print "Do you want to delete this to your collection (y/n)? "
+              response_confirm_delete = gets.chomp.downcase == 'y'
 
-            if response_confirm_delete 
-                delete_from_collection(db, coin_selected, current)
-            end
-        end
-    elsif coin_selected == 0
-        next
-    else
-        print "You entered an invalid number.  Press <enter> to continue."
-        x=gets.chomp
+              if response_confirm_delete 
+                  delete_from_collection(db, coin_selected, current)
+              end
+          end
+      elsif coin_selected == 0
+          break
+      else
+          print "You entered an invalid number.  Press <enter> to continue."
+          gets.chomp
+      end
     end
 
   end
