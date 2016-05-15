@@ -102,8 +102,7 @@ def view_transactions(db)
 
 end
 
-
-def create_tables(db)
+def create_table_coins(db)
   create_table_coins = <<-SQL
     CREATE TABLE IF NOT EXISTS coins(
       id INTEGER PRIMARY KEY,
@@ -112,6 +111,20 @@ def create_tables(db)
     )
     SQL
 
+  db.execute(create_table_coins)
+
+  insert_default_coins = <<-SQL
+    INSERT INTO coins VALUES 
+    (null, "Penny"), (null, "Nickel"), 
+    (null, "Dime"), (null, "Quarter"), 
+    (null, "Half Dollar"), (null, "Silver Dollar")
+  SQL
+
+  db.execute(insert_default_coins)
+
+end  
+
+def create_table_grades(db)
   create_table_grades = <<-SQL
     CREATE TABLE IF NOT EXISTS grades(
       id INTEGER PRIMARY KEY,
@@ -121,6 +134,23 @@ def create_tables(db)
     )
     SQL
 
+  db.execute(create_table_grades)
+
+  insert_default_grades = <<-SQL
+    INSERT INTO grades VALUES 
+    (null, "G", "Good"), 
+    (null, "VG", "Very Good"), 
+    (null, "F", "Fine"), 
+    (null, "VF", "Very Fine"), 
+    (null, "EF", "Extra Fine"), 
+    (null, "UNC", "Mint")
+  SQL
+
+  db.execute(insert_default_grades)
+
+end
+
+def create_table_collections(db)
   create_table_collection = <<-SQL
     CREATE TABLE IF NOT EXISTS collection(
       id INTEGER PRIMARY KEY,
@@ -135,6 +165,11 @@ def create_tables(db)
     )
     SQL
 
+  db.execute(create_table_collection)
+
+end
+
+def create_table_trans(db)
   create_table_trans = <<-SQL
     CREATE TABLE IF NOT EXISTS coin_trans(
       id INTEGER PRIMARY KEY,
@@ -145,38 +180,17 @@ def create_tables(db)
       FOREIGN KEY (coll_id) REFERENCES collection(id)
     )
     SQL
-
-  db.execute(create_table_coins) 
-  db.execute(create_table_grades)
-  db.execute(create_table_collection)
+  
   db.execute(create_table_trans)
-
 end
 
-
-def insert_defaults(db)
-
-  insert_default_coins = <<-SQL
-    INSERT INTO coins VALUES 
-    (null, "Penny"), (null, "Nickel"), 
-    (null, "Dime"), (null, "Quarter"), 
-    (null, "Half Dollar"), (null, "Silver Dollar")
-  SQL
-
-  insert_default_grades = <<-SQL
-    INSERT INTO grades VALUES 
-    (null, "G", "Good"), 
-    (null, "VG", "Very Good"), 
-    (null, "F", "Fine"), 
-    (null, "VF", "Very Fine"), 
-    (null, "EF", "Extra Fine"), 
-    (null, "UNC", "Mint")
-  SQL
-
-  db.execute(insert_default_coins)
-  db.execute(insert_default_grades)
-
+def create_tables(db)
+  create_table_coins(db)
+  create_table_grades(db)
+  create_table_collections(db)
+  create_table_trans(db)
 end
+
 
 def display_grades(db, valid_grades, r_indent)
   grade_types = db.execute("SELECT * FROM grades")
@@ -194,6 +208,7 @@ def display_coins(db, valid_coins, r_indent)
   end
 end
 
+
 def delete_from_collection(db, id, current)
   del_price = 0
   
@@ -202,6 +217,7 @@ def delete_from_collection(db, id, current)
   db.execute("UPDATE collection SET status = 'D' WHERE id = ? ", [id])
 
 end
+
 
 def modify_collection(db, id)
   print "Do you want to modify the (y)ear, (g)rade or (p)rice paid for the coin? "
@@ -274,8 +290,6 @@ current = Date.today
 db = SQLite3::Database.new("coins.db")
 
 create_tables(db)
-insert_defaults(db)
-
 
 loop do
 
@@ -296,8 +310,8 @@ loop do
   response_add_condition = 0
 
 
-# Begin ADD to collection -----------
-  if screen == 1 
+
+  if screen == 1  # Begin ADD to collection -----------
     add_coin_heading
 
     display_coins(db, valid_coins, r_indent)
@@ -326,18 +340,23 @@ loop do
     print "Do you want to add this to your collection (y/n)? "
     response_confirm_add = gets.chomp.downcase == 'y'
 
+    # Add to collection
+    # Grab row that you just inserted for the ID
+    # Add to coin_trans table (transactions)
+
     if response_confirm_add
         db.execute("INSERT INTO collection (coin_id, year, condition, purchase_price, sale_price, status) VALUES (?,?,?,?,?,?)", [response_add_coin_type, response_add_year, response_add_condition, response_add_price, 0, "A"])
+
 
         prim_key = db.execute("SELECT last_insert_rowid()")
 
         db.execute("INSERT INTO coin_trans (tran_date, tran_type, price, coll_id) VALUES (?,?,?,?)", [current.to_s, "Add", response_add_price, prim_key])
     end
-  end
-# End ADD to collection -------------------
 
-# Begin SELL from collection --------------
-  if screen == 2
+  end   # End ADD to collection -------------------
+
+
+  if screen == 2   # Begin SELL from collection ---
     sell_coin_heading
     puts
     valid_coins = view_collection(db)
@@ -346,7 +365,7 @@ loop do
     response_sell_coin = gets.chomp.to_i
 
     if valid_coins.include?(response_sell_coin)
-      print "Sale price? "
+      print "Sale price (0.00)? "
       response_sell_price = (gets.chomp.to_f * 100).to_i
 
       db.execute("UPDATE collection SET status = 'S' WHERE id = ?",[response_sell_coin])
@@ -356,8 +375,8 @@ loop do
     end
   end
 
-# Begin VIEW from collection ---------------
-  if screen == 3
+
+  if screen == 3   # Begin VIEW from collection ---------------
     view_coin_heading
     view_collection(db)
     print "Press <enter> to continue > "
@@ -365,8 +384,8 @@ loop do
 
   end
 
-# Begin VIEW from transactions -------------
-  if screen == 4
+
+  if screen == 4   # Begin VIEW from transactions -------------
     view_coin_trans
     view_transactions(db)
     print "Press <enter> to continue > "
@@ -374,7 +393,7 @@ loop do
 
   end
 
-  if screen == 5
+  if screen == 5  # Begin UPDATE collections -------------
     loop do
       view_coin_heading
       valid_coins = view_collection(db)
@@ -395,6 +414,7 @@ loop do
                   delete_from_collection(db, coin_selected, current)
               end
           end
+
       elsif coin_selected == 0
           break
       else
@@ -405,8 +425,7 @@ loop do
 
   end
 
-# Quit -------------------
-  if screen == 6
+  if screen == 6    # Quit -------------------
     break
   end
 
