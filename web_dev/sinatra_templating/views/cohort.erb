@@ -19,7 +19,12 @@
       <% end %>
     </select>
 
-    <input type="text" name="cohort" placeholder="Cohort">
+    <select name="cohort" placeholder="Cohort">
+      <% @cohorts.each do |student| %>
+        <option value="<%=student['cohort'] %>"><%=student['cohort'] %></option>
+      <% end %>
+    </select>
+    
     <button type="submit">Save</button>
   </form>
 </body>

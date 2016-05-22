@@ -17,6 +17,7 @@ get '/' do
 end
 
 get '/students/new' do
+  @campus = db.execute("SELECT DISTINCT campus FROM students")
   erb :new_student
 end
 
@@ -30,6 +31,7 @@ end
 # Cohort table
 get '/cohort/new' do
   @studentsCohort = db.execute("SELECT name FROM students ORDER BY name")
+  @cohorts = db.execute("SELECT DISTINCT cohort FROM students")
   erb :cohort
 end
 
@@ -42,7 +44,7 @@ end
 
 # Cohort form
 post '/cohort' do
-   p params
+  # p params
   db.execute("UPDATE students SET cohort = ? WHERE name = ?", [params['cohort'], params['name']])
 
   redirect '/'
