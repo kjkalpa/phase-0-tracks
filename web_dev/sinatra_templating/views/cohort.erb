@@ -2,10 +2,13 @@
 <html>
 <head>
   <title>Cohorts</title>
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="<%= url("/styles.css")%>">
 </head>
 <body>
   <h1>Cohort Table</h1>
+  <h3>Add a student to a cohort.</h3>
+  <p>Click <a href="/">here</a> to return to the main page.</p>
+
   <form action="/cohort" method="POST">
     <!-- <input type="text" name="name" placeholder="Name"> -->
     <!-- <input type="text" name="campus" placeholder="Campus"> -->
