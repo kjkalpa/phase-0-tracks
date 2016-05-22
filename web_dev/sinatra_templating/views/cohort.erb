@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cohorts</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>Cohort Table</h1>
+  <form action="/cohort" method="POST">
+    <!-- <input type="text" name="name" placeholder="Name"> -->
+    <!-- <input type="text" name="campus" placeholder="Campus"> -->
+
+    <select name="name" placeholder="Name">
+      <% @studentsCohort.each do |student| %>
+        <option value="<%=student['name'] %>"><%=student['name'] %></option>
+      <% end %>
+    </select>
+
+    <input type="text" name="cohort" placeholder="Cohort">
+    <button type="submit">Save</button>
+  </form>
+</body>
+</html>
+
