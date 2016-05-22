@@ -7,10 +7,15 @@
   <h1>Student Management System</h1>
   <p>Welcome to the student management system.</p>
   <p>Click <a href="students/new">here</a> to create a new student.</p>
-  <ul>
+  <p>Click <a href="cohort/new">here</a> to add a student to a cohort.</p>
+  <p>Click <a href="students/directory">here</a> to view students by campus</p>
+  <ol>
     <% @students.each do |student| %>
-      <li><%= student['name'] %>, <%= student['age'] %></li>
+      <li><%= student['name'] %>, <%= student['age'] %>, <%= student['cohort'] %></li>
     <% end %>
-  </ul>
+  </ol>
+
+
+
 </body>
 </html>
